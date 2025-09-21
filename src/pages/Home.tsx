@@ -5,6 +5,7 @@
  * - Pohjakuva (/img/pohjakuva.svg)
  * - Hiiren scroll wheel zoom
  * - Hiiren drag panorointi
+ * - HVAC komponentit (lämpöpumput, ilmastointi, puhaltimet, kompressorit)
  * - EI ylimääräisiä komponentteja tai mediajuttuja
  * 
  * ⚠️  ZOOM/PAN TOIMINNALLISUUS ON VALIDOITU JA TOIMII TÄYDELLISESTI! ⚠️
@@ -24,11 +25,22 @@
  * ✅ Scale/translate state management
  */
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { useZoomAndPan } from '../hooks/useZoomAndPan';
-
-
+import { useLayoutPersistence } from '../hooks/useLayoutPersistence';
+import { 
+  HeatPump, 
+  AirConditioner, 
+  Fan, 
+  Compressor, 
+  HeatingPipe,
+  type HeatPumpModel,
+  type AirConditionerModel,
+  type FanModel,
+  type CompressorModel,
+  type HeatingPipeModel
+} from '../components/hvac';
 
 export const Home: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +59,67 @@ export const Home: React.FC = () => {
     setTranslate
   } = useZoomAndPan();
 
+  // Layout state for HVAC components
+  const [heatingPipes, setHeatingPipes] = useState<HeatingPipeModel[]>([]);
+  const [heatPumps, setHeatPumps] = useState<HeatPumpModel[]>([]);
+  const [airConditioners, setAirConditioners] = useState<AirConditionerModel[]>([]);
+  const [fans, setFans] = useState<FanModel[]>([]);
+  const [compressors, setCompressors] = useState<CompressorModel[]>([]);
 
+  // Layout persistence hook
+  const { loadFromStorage } = useLayoutPersistence(
+    heatingPipes,
+    setHeatingPipes,
+    heatPumps,
+    setHeatPumps,
+    airConditioners,
+    setAirConditioners,
+    fans,
+    setFans,
+    compressors,
+    setCompressors
+  );
+
+  // Load layout from localStorage on component mount
+  useEffect(() => {
+    loadFromStorage();
+  }, [loadFromStorage]);
+
+  // Add some sample HVAC components if none exist
+  useEffect(() => {
+    if (heatPumps.length === 0 && airConditioners.length === 0) {
+      // Add sample components only if localStorage is empty
+      const sampleHeatPump: HeatPumpModel = {
+        id: 'hp1',
+        position: { x: 0.2, y: 0.3 },
+        title: 'Bosch Lämpöpumppu',
+        size: 100
+      };
+
+      const sampleAirConditioner: AirConditionerModel = {
+        id: 'ac1',
+        position: { x: 0.6, y: 0.2 },
+        title: 'Nilan Ilmanvaihto',
+        compressorId: 'comp1',
+        fanId: 'fan1',
+        layout: 'horizontal',
+        showLabels: true,
+        size: 80
+      };
+
+      const sampleFan: FanModel = {
+        id: 'fan2',
+        position: { x: 0.8, y: 0.7 },
+        title: 'Ulkopuhallin',
+        fanType: 'outdoor',
+        size: 60
+      };
+
+      setHeatPumps([sampleHeatPump]);
+      setAirConditioners([sampleAirConditioner]);
+      setFans([sampleFan]);
+    }
+  }, [heatPumps.length, airConditioners.length]);
 
   // ⚠️ SUOJATTU KOODI - Desktop wheel zoom - ÄLÄR MUUTA! ⚠️
   useEffect(() => {
@@ -258,9 +330,99 @@ export const Home: React.FC = () => {
             const naturalW = target.naturalWidth || 1200;
             const naturalH = target.naturalHeight || 800;
             setImgSize({ w: naturalW, h: naturalH });
-
           }}
         />
+
+        {/* HVAC Components Layer */}
+        {imgSize && (
+          <>
+            {/* Heat Pumps */}
+            {heatPumps.map((heatPump) => (
+              <HeatPump
+                key={heatPump.id}
+                id={heatPump.id}
+                position={heatPump.position}
+                baseWidth={imgSize.w}
+                baseHeight={imgSize.h}
+                title={heatPump.title}
+                size={heatPump.size}
+              />
+            ))}
+
+            {/* Air Conditioners */}
+            {airConditioners.map((ac) => (
+              <AirConditioner
+                key={ac.id}
+                id={ac.id}
+                position={ac.position}
+                baseWidth={imgSize.w}
+                baseHeight={imgSize.h}
+                title={ac.title}
+                compressorId={ac.compressorId}
+                fanId={ac.fanId}
+                layout={ac.layout}
+                showLabels={ac.showLabels}
+                size={ac.size}
+              />
+            ))}
+
+            {/* Fans */}
+            {fans.map((fan) => (
+              <Fan
+                key={fan.id}
+                id={fan.id}
+                position={fan.position}
+                baseWidth={imgSize.w}
+                baseHeight={imgSize.h}
+                title={fan.title}
+                fanId={fan.fanId}
+                fanType={fan.fanType}
+                size={fan.size}
+              />
+            ))}
+
+            {/* Compressors */}
+            {compressors.map((compressor) => (
+              <Compressor
+                key={compressor.id}
+                id={compressor.id}
+                position={compressor.position}
+                baseWidth={imgSize.w}
+                baseHeight={imgSize.h}
+                title={compressor.title}
+                compressorId={compressor.compressorId}
+                size={compressor.size}
+              />
+            ))}
+
+            {/* Heating Pipes (SVG layer) */}
+            {heatingPipes.length > 0 && (
+              <svg
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  pointerEvents: 'none',
+                  zIndex: 5
+                }}
+              >
+                {heatingPipes.map((pipe) => (
+                  <HeatingPipe
+                    key={pipe.id}
+                    id={pipe.id}
+                    points={pipe.points}
+                    baseWidth={imgSize.w}
+                    baseHeight={imgSize.h}
+                    on={pipe.on}
+                    title={pipe.title}
+                  />
+                ))}
+              </svg>
+            )}
+          </>
+        )}
       </Box>
     </Box>
   );
