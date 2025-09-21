@@ -1,0 +1,123 @@
+.status-bar {
+  position: fixed;
+  top: 64px; /* AppBar jälkeen */
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 8px 16px;
+  display: none; /* Piilossa mobile-tilassa */
+}
+
+/* Näytä vain desktop-tilassa */
+@media (min-width: 768px) {
+  .status-bar {
+    display: block;
+  }
+}
+
+.status-bar-cards {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.status-bar-card {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 6px 10px;
+  min-width: 90px;
+  flex: 1;
+  max-width: 140px;
+  transition: all 0.2s ease;
+}
+
+.status-bar-card:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.status-bar-icon {
+  font-size: 1rem;
+  margin-right: 6px;
+  opacity: 0.8;
+}
+
+.status-bar-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.status-bar-label {
+  font-size: 0.7rem;
+  color: #64748b;
+  line-height: 1;
+  margin-bottom: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-bar-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-bar-details-btn {
+  margin-left: auto;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.status-bar-details-btn:hover {
+  background: #2563eb;
+}
+
+.status-bar-arrow {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .status-bar-cards {
+    gap: 12px;
+  }
+  
+  .status-bar-card {
+    min-width: 100px;
+    padding: 6px 10px;
+  }
+  
+  .status-bar-label {
+    font-size: 0.7rem;
+  }
+  
+  .status-bar-value {
+    font-size: 0.85rem;
+  }
+}

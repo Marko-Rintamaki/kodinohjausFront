@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8" />
+<title>LED Spot Demo</title>
+<style>
+:root {
+  --spot-size: 48px;
+  --spot-off-stroke: #9ca3af;
+  --spot-on-fill: #fde68a;
+  --spot-on-core: #fbbf24;
+  --spot-on-glow-a: #fcd34d;
+  --spot-on-glow-b: #f59e0b;
+  --spot-speed: 2.2s;
+}
+
+body {
+  background:#111; color:#eee; font-family:system-ui, sans-serif;
+  display:flex; flex-direction:column; align-items:center; gap:1.25rem; padding:40px;
+}
+
+.grid {
+  display:grid;
+  gap:18px;
+  grid-template-columns:repeat(auto-fill, minmax(var(--spot-size),1fr));
+  max-width:420px;
+}
+
+.spot {
+  width:var(--spot-size);
+  aspect-ratio:1/1;
+  position:relative;
+  cursor:pointer;
+  user-select:none;
+}
+
+.spot svg {
+  width:100%; height:100%;
+  overflow:visible;
+  display:block;
+}
+
+.spot .ring,
+.spot .core,
+.spot .glow {
+  transition: fill .35s ease, stroke .35s ease, opacity .4s ease, filter .6s ease;
+}
+
+.ring {
+  fill:transparent;
+  stroke:var(--spot-off-stroke);
+  stroke-width:4;
+}
+
+.core {
+  fill:transparent;
+  stroke:#fbbf24;
+  stroke-width:2;
+  opacity:.25;
+}
+
+.glow {
+  fill:var(--spot-on-fill);
+  opacity:0;
+  filter:none;
+}
+
+.spot.on .ring {
+  stroke:var(--spot-on-glow-a);
+  filter:drop-shadow(0 0 4px var(--spot-on-glow-a)) drop-shadow(0 0 12px var(--spot-on-glow-b));
+}
+
+.spot.on .core {
+  fill:var(--spot-on-core);
+  opacity:1;
+}
+
+.spot.on .glow {
+  opacity:.9;
+  animation: glowPulse var(--spot-speed) ease-in-out infinite;
+  filter:drop-shadow(0 0 6px var(--spot-on-glow-a)) drop-shadow(0 0 20px var(--spot-on-glow-b));
+}
+
+@keyframes glowPulse {
+  0%,100% { filter:drop-shadow(0 0 5px var(--spot-on-glow-a)) drop-shadow(0 0 18px var(--spot-on-glow-b)); opacity:.85; }
+  50% { filter:drop-shadow(0 0 10px var(--spot-on-glow-a)) drop-shadow(0 0 30px var(--spot-on-glow-b)); opacity:1; }
+}
+
+.spot:active { transform:scale(.9); transition:transform .1s; }
+
+.controls {
+  display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center;
+}
+
+button {
+  background:#1f2937; color:#eee; border:1px solid #374151;
+  padding:.45rem .9rem; border-radius:6px; cursor:pointer;
+  font-size:.85rem; letter-spacing:.5px;
+}
+button:hover { background:#273549; }
+
+.small   { --spot-size:32px; }
+.medium  { --spot-size:48px; }
+.large   { --spot-size:64px; }
+
+.twinkle { animation: twinkle var(--spot-speed) ease-in-out infinite; }
+@keyframes twinkle {
+  0%,100% { opacity:1; }
+  50% { opacity:.6; }
+}
+</style>
+</head>
+<body>
+
+<h1>Pienet LED-spotit</h1>
+
+<div class="controls">
+  <button onclick="allOn()">Kaikki päälle</button>
+  <button onclick="allOff()">Kaikki pois</button>
+  <button onclick="randomize()">Satunnaiset</button>
+  <button onclick="wave()">Aalto</button>
+</div>
+
+<div id="spotGrid" class="grid">
+  <!-- Luo haluamasi määrä -->
+</div>
+
+<script>
+// Luodaan N spot-komponenttia
+const COUNT = 12;
+const grid = document.getElementById('spotGrid');
+
+for (let i=0;i<COUNT;i++){
+  const div = document.createElement('div');
+  div.className = 'spot medium';
+  div.dataset.index = i;
+  div.innerHTML = `
+    <svg viewBox="0 0 100 100" aria-label="LED spot">
+      <circle class="glow" cx="50" cy="50" r="42"></circle>
+      <circle class="core" cx="50" cy="50" r="30"></circle>
+      <circle class="ring" cx="50" cy="50" r="46"></circle>
+    </svg>
+  `;
+  div.addEventListener('click', () => div.classList.toggle('on'));
+  grid.appendChild(div);
+}
+
+// Helperit
+function allOn(){ document.querySelectorAll('.spot').forEach(s=>s.classList.add('on')); }
+function allOff(){ document.querySelectorAll('.spot').forEach(s=>s.classList.remove('on')); }
+function randomize(){
+  document.querySelectorAll('.spot').forEach(s=>{
+    s.classList.toggle('on', Math.random() > 0.5);
+  });
+}
+function wave(){
+  const spots = [...document.querySelectorAll('.spot')];
+  allOff();
+  spots.forEach((s,i)=>{
+    setTimeout(()=> s.classList.add('on'), i*120);
+  });
+}
+
+// Esimerkkialku: random + kevyt aalto
+randomize();
+setTimeout(wave, 600);
+</script>
+
+</body>
+</html>

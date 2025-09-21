@@ -1,0 +1,490 @@
+import React, { useState, useEffect, useRef } from 'react';
+import Lamp from '../components/Lamp';
+import MirrorLight from '../components/MirrorLight';
+import SpotLight from '../components/SpotLight';
+import LEDStrip from '../components/LEDStrip';
+import HeatingPipe from '../components/HeatingPipe';
+import CompressorNew from '../components/CompressorNew';
+import FanIcon from '../components/FanIcon';
+import HeatPumpCompressor from '../components/HeatPumpCompressor';
+import HeatPumpIndoorUnit from '../components/HeatPumpIndoorUnit';
+import WallLight from '../components/WallLight';
+import TemperatureIcon from '../components/TemperatureIcon';
+import './Home.css';
+
+const Home: React.FC = () => {
+  const [scale, setScale] = useState(1);
+  const [translate, setTranslate] = useState({ x: 0, y: 0 });
+  const [isPanning, setIsPanning] = useState(false);
+  const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
+  const [startTranslate, setStartTranslate] = useState({ x: 0, y: 0 });
+  
+  // Data types
+  type LampType = {id: string; kind: 'lamp'|'mirror'|'spot'; x: number; y: number; on: boolean; label?: string; brightness?: number; color?: string; relayId?: number};
+  type MirrorLightType = {id: string; x: number; y: number; on: boolean; label?: string; relayId?: number};
+  type SpotLightType = {id: string; x: number; y: number; on: boolean; label?: string; relayId?: number};
+  type WallLightType = {id: string; x: number; y: number; on: boolean; label?: string; relayId?: number};
+  type LEDStripType = {id: string; points: {x: number; y: number}[]; on: boolean; label?: string; brightness?: number; color?: string; relayId?: number};
+  type HeatingPipeType = {id: string; points: {x: number; y: number}[]; on: boolean; label?: string; relayId?: number};
+  type FanIconType = {id: string; x: number; y: number; fanId?: string; label?: string};
+  type CompressorNewType = {id: string; x: number; y: number; compressorId?: string; label?: string};
+  type HeatPumpCompressorType = {id: string; x: number; y: number; compressorId?: string; label?: string};
+  type HeatPumpIndoorUnitType = {id: string; x: number; y: number; unitId?: string; label?: string};
+  type TemperatureIconType = {id: string; x: number; y: number; roomId: string; roomName?: string};
+  
+  // Component states (aloitetaan muutamalla testikappaleella)
+  const [lamps, setLamps] = useState<LampType[]>([
+    {id: 'lamp1', kind: 'lamp', x: 0.3, y: 0.2, on: false, label: 'Keittiö', relayId: 1},
+    {id: 'lamp2', kind: 'lamp', x: 0.7, y: 0.6, on: false, label: 'Olohuone', relayId: 2}
+  ]);
+  
+  const [mirrorLights, setMirrorLights] = useState<MirrorLightType[]>([
+    {id: 'mirror1', x: 0.2, y: 0.8, on: false, label: 'Kylpyhuone peili', relayId: 4}
+  ]);
+  
+  const [spotLights, setSpotLights] = useState<SpotLightType[]>([
+    {id: 'spot1', x: 0.4, y: 0.4, on: false, label: 'Keittiön spotti', relayId: 6},
+    {id: 'spot2', x: 0.6, y: 0.6, on: false, label: 'Olohuoneen spotti', relayId: 7}
+  ]);
+  
+  const [wallLights, setWallLights] = useState<WallLightType[]>([
+    {id: 'wall1', x: 0.1, y: 0.3, on: false, label: 'Käytävän seinävalo', relayId: 8},
+    {id: 'wall2', x: 0.9, y: 0.7, label: 'Makuuhuoneen seinävalo', on: false, relayId: 9}
+  ]);
+  
+  const [ledStrips, setLedStrips] = useState<LEDStripType[]>([
+    {id: 'led1', points: [{x: 0.4, y: 0.3}, {x: 0.6, y: 0.3}], on: false, label: 'Keittiön LED', relayId: 3}
+  ]);
+  
+  const [heatingPipes, setHeatingPipes] = useState<HeatingPipeType[]>([
+    {id: 'heating1', points: [{x: 0.1, y: 0.8}, {x: 0.9, y: 0.8}], on: false, label: 'Lattialämmitys', relayId: 5}
+  ]);
+  
+  const [fanIcons, setFanIcons] = useState<FanIconType[]>([
+    {id: 'fan1', x: 0.5, y: 0.5, fanId: 'exhaust1', label: 'Poistoilma'},
+    {id: 'fan2', x: 0.8, y: 0.4, fanId: 'intake1', label: 'Tuloilma'}
+  ]);
+  
+  const [compressors, setCompressors] = useState<CompressorNewType[]>([
+    {id: 'comp1', x: 0.9, y: 0.8, compressorId: 'heatpump1', label: 'Ulkoyksikkö'},
+    {id: 'comp2', x: 0.1, y: 0.2, compressorId: 'ac1', label: 'Ilmastointi'}
+  ]);
+  
+  const [heatPumpCompressors, setHeatPumpCompressors] = useState<HeatPumpCompressorType[]>([
+    {id: 'hpcomp1', x: 0.2, y: 0.9, compressorId: 'heatpump_main', label: 'LP Kompressori'},
+    {id: 'hpcomp2', x: 0.7, y: 0.8, compressorId: 'heatpump_secondary', label: 'LP Apukompressori'}
+  ]);
+  
+  const [heatPumpIndoorUnits, setHeatPumpIndoorUnits] = useState<HeatPumpIndoorUnitType[]>([
+    {id: 'hpunit1', x: 0.6, y: 0.2, unitId: 'indoor_main', label: 'LP Sisäyksikkö'},
+    {id: 'hpunit2', x: 0.3, y: 0.6, unitId: 'indoor_bedroom', label: 'Makuuhuone LP'}
+  ]);
+  
+  const [temperatureIcons, setTemperatureIcons] = useState<TemperatureIconType[]>([
+    {id: 'temp1', x: 0.2, y: 0.4, roomId: 'kitchen', roomName: 'Keittiö'},
+    {id: 'temp2', x: 0.8, y: 0.7, roomId: 'living', roomName: 'Olohuone'}
+  ]);
+  
+  // Touch zoom (pinch) käsittely
+  const [lastTouchDistance, setLastTouchDistance] = useState(0);
+  
+  // Pohjakuvan koko-seuranta
+  const imageRef = useRef<HTMLImageElement>(null);
+  const [imageScale, setImageScale] = useState(1);
+  
+  useEffect(() => {
+    const updateImageScale = () => {
+      if (imageRef.current) {
+        const img = imageRef.current;
+        const container = img.parentElement;
+        if (container) {
+          // Lasketaan kuinka paljon pohjakuva on skaalautunut alkuperäisestä koostaan
+          const containerWidth = container.clientWidth;
+          const containerHeight = container.clientHeight;
+          const imgNaturalWidth = img.naturalWidth || 800; // Fallback jos kuva ei ole latautunut
+          const imgNaturalHeight = img.naturalHeight || 600;
+          
+          // Lasketaan skaalauskerroin molemmille dimensioille
+          const scaleX = containerWidth / imgNaturalWidth;
+          const scaleY = containerHeight / imgNaturalHeight;
+          
+          // Käytetään pienempää skaalauskerrointa (object-fit: contain)
+          const actualScale = Math.min(scaleX, scaleY);
+          setImageScale(actualScale);
+        }
+      }
+    };
+    
+    // Päivitetään heti
+    updateImageScale();
+    
+    // Lisätään event listenerit
+    window.addEventListener('resize', updateImageScale);
+    window.addEventListener('orientationchange', () => {
+      // Orientation change tarvitsee pienen viiveen
+      setTimeout(updateImageScale, 100);
+    });
+    
+    return () => {
+      window.removeEventListener('resize', updateImageScale);
+      window.removeEventListener('orientationchange', updateImageScale);
+    };
+  }, []);
+
+  const getTouchDistance = (touches: React.TouchList) => {
+    if (touches.length < 2) return 0;
+    const touch1 = touches[0];
+    const touch2 = touches[1];
+    return Math.sqrt(
+      Math.pow(touch2.clientX - touch1.clientX, 2) + 
+      Math.pow(touch2.clientY - touch1.clientY, 2)
+    );
+  };
+
+  // Zoom hiirellä
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY;
+    const zoomFactor = 0.1;
+    const newScale = Math.max(0.5, Math.min(3, scale + (delta > 0 ? -zoomFactor : zoomFactor)));
+    setScale(newScale);
+  };
+
+  // Pan hiirellä
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsPanning(true);
+    setStartPoint({ x: e.clientX, y: e.clientY });
+    setStartTranslate({ ...translate });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isPanning) {
+      const deltaX = e.clientX - startPoint.x;
+      const deltaY = e.clientY - startPoint.y;
+      setTranslate({
+        x: startTranslate.x + deltaX,
+        y: startTranslate.y + deltaY
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsPanning(false);
+  };
+
+  // Touch event handlerit
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      // Pinch zoom alkaa
+      const distance = getTouchDistance(e.touches);
+      setLastTouchDistance(distance);
+    } else if (e.touches.length === 1) {
+      // Pan alkaa
+      const touch = e.touches[0];
+      setIsPanning(true);
+      setStartPoint({ x: touch.clientX, y: touch.clientY });
+      setStartTranslate({ ...translate });
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    e.preventDefault();
+    
+    if (e.touches.length === 2 && lastTouchDistance > 0) {
+      // Pinch zoom
+      const distance = getTouchDistance(e.touches);
+      const zoomRatio = distance / lastTouchDistance;
+      const newScale = Math.max(0.5, Math.min(3, scale * zoomRatio));
+      setScale(newScale);
+      setLastTouchDistance(distance);
+    } else if (e.touches.length === 1 && isPanning) {
+      // Pan
+      const touch = e.touches[0];
+      const deltaX = touch.clientX - startPoint.x;
+      const deltaY = touch.clientY - startPoint.y;
+      setTranslate({
+        x: startTranslate.x + deltaX,
+        y: startTranslate.y + deltaY
+      });
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsPanning(false);
+    setLastTouchDistance(0);
+  };
+
+  return (
+    <div className="home-page">
+      <div 
+        className="floorplan-area"
+        onWheel={handleWheel}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div 
+          className="floorplan-container"
+          style={{
+            transform: `scale(${scale}) translate(${translate.x}px, ${translate.y}px)`,
+          }}
+        >
+          <img 
+            ref={imageRef}
+            src="/img/pohjakuva.svg"
+            alt="Pohjakuva"
+            className="floorplan-image"
+            draggable={false}
+          />
+          
+          {/* Lamput */}
+          {lamps.map(lamp => (
+            <div
+              key={lamp.id}
+              style={{
+                position: 'absolute',
+                left: `${lamp.x * 100}%`,
+                top: `${lamp.y * 100}%`,
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10
+              }}
+            >
+              <Lamp
+                size={Math.max(15, Math.round(30 * imageScale))}
+                on={lamp.on}
+                onChange={(newOn) => {
+                  setLamps(prev => prev.map(l => 
+                    l.id === lamp.id ? {...l, on: newOn} : l
+                  ));
+                }}
+                title={`${lamp.label || lamp.id}`}
+              />
+            </div>
+          ))}
+          
+          {/* Peilivalot */}
+          {mirrorLights.map(mirror => (
+            <div
+              key={mirror.id}
+              style={{
+                position: 'absolute',
+                left: `${mirror.x * 100}%`,
+                top: `${mirror.y * 100}%`,
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10
+              }}
+            >
+              <MirrorLight
+                length={30}
+                on={mirror.on}
+                onChange={(newOn) => {
+                  setMirrorLights(prev => prev.map(m => 
+                    m.id === mirror.id ? {...m, on: newOn} : m
+                  ));
+                }}
+                title={`${mirror.label || mirror.id}`}
+              />
+            </div>
+          ))}
+          
+          {/* Spottivalot */}
+          {spotLights.map(spot => (
+            <div
+              key={spot.id}
+              style={{
+                position: 'absolute',
+                left: `${spot.x * 100}%`,
+                top: `${spot.y * 100}%`,
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10
+              }}
+            >
+              <SpotLight
+                size={Math.max(12, Math.round(25 * imageScale))}
+                on={spot.on}
+                onChange={(newOn) => {
+                  setSpotLights(prev => prev.map(s => 
+                    s.id === spot.id ? {...s, on: newOn} : s
+                  ));
+                }}
+                title={`${spot.label || spot.id}`}
+              />
+            </div>
+          ))}
+          
+          {/* LED-nauhat */}
+          <svg 
+            width="100%" 
+            height="100%" 
+            style={{ 
+              position: 'absolute', 
+              left: 0, 
+              top: 0, 
+              overflow: 'visible', 
+              zIndex: 2,
+              pointerEvents: 'none'
+            }}
+            viewBox="0 0 800 600"
+            preserveAspectRatio="none"
+          >
+            {ledStrips.map(strip => (
+              <LEDStrip
+                key={strip.id}
+                points={strip.points}
+                on={strip.on}
+                baseWidth={800}
+                baseHeight={600}
+                onChange={(newOn) => {
+                  setLedStrips(prev => prev.map(s => 
+                    s.id === strip.id ? {...s, on: newOn} : s
+                  ));
+                }}
+                title={`${strip.label || strip.id}`}
+              />
+            ))}
+            
+            {/* Lämmitysputket */}
+            {heatingPipes.map(pipe => (
+              <HeatingPipe
+                key={pipe.id}
+                points={pipe.points}
+                on={pipe.on}
+                baseWidth={800}
+                baseHeight={600}
+                onChange={(newOn) => {
+                  setHeatingPipes(prev => prev.map(p => 
+                    p.id === pipe.id ? {...p, on: newOn} : p
+                  ));
+                }}
+                title={`${pipe.label || pipe.id}`}
+              />
+            ))}
+            
+            {/* Seinävalot */}
+            {wallLights.map(wall => (
+              <WallLight
+                key={wall.id}
+                x={wall.x * 800}
+                y={wall.y * 600}
+                isOn={wall.on}
+                label={wall.label}
+                onClick={() => {
+                  setWallLights(prev => prev.map(w => 
+                    w.id === wall.id ? {...w, on: !w.on} : w
+                  ));
+                }}
+              />
+            ))}
+          </svg>
+          
+          {/* Lämpötila-ikonit */}
+          {temperatureIcons.map(tempIcon => (
+            <div
+              key={tempIcon.id}
+              style={{
+                position: 'absolute',
+                left: `${tempIcon.x * 100}%`,
+                top: `${tempIcon.y * 100}%`,
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10
+              }}
+            >
+              <TemperatureIcon
+                roomId={tempIcon.roomId}
+                roomName={tempIcon.roomName || tempIcon.roomId}
+                authenticated={true}
+                scale={Math.max(0.5, imageScale)}
+              />
+            </div>
+          ))}
+          
+          {/* Puhaltimet */}
+          {fanIcons.map(fan => (
+            <div
+              key={fan.id}
+              style={{
+                position: 'absolute',
+                left: `${fan.x * 100}%`,
+                top: `${fan.y * 100}%`,
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10
+              }}
+            >
+              <FanIcon
+                size={Math.max(15, Math.round(35 * imageScale))}
+                fanId={fan.fanId}
+                title={`${fan.label || fan.id}`}
+              />
+            </div>
+          ))}
+          
+          {/* Kompressorit */}
+          {compressors.map(comp => (
+            <div
+              key={comp.id}
+              style={{
+                position: 'absolute',
+                left: `${comp.x * 100}%`,
+                top: `${comp.y * 100}%`,
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10
+              }}
+            >
+              <CompressorNew
+                size={40}
+                compressorId={comp.compressorId}
+                title={`${comp.label || comp.id}`}
+              />
+            </div>
+          ))}
+          
+          {/* Lämpöpumpun kompressorit */}
+          {heatPumpCompressors.map(hpComp => (
+            <div
+              key={hpComp.id}
+              style={{
+                position: 'absolute',
+                left: `${hpComp.x * 100}%`,
+                top: `${hpComp.y * 100}%`,
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10
+              }}
+            >
+              <HeatPumpCompressor
+                size={50}
+                compressorId={hpComp.compressorId}
+                title={`${hpComp.label || hpComp.id}`}
+              />
+            </div>
+          ))}
+          
+          {/* Lämpöpumpun sisäyksiköt */}
+          {heatPumpIndoorUnits.map(hpUnit => (
+            <div
+              key={hpUnit.id}
+              style={{
+                position: 'absolute',
+                left: `${hpUnit.x * 100}%`,
+                top: `${hpUnit.y * 100}%`,
+                transform: 'translate(-50%, -50%)',
+                zIndex: 10
+              }}
+            >
+              <HeatPumpIndoorUnit
+                size={60}
+                unitId={hpUnit.unitId}
+                title={`${hpUnit.label || hpUnit.id}`}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Home;

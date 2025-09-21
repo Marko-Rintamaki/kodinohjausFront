@@ -1,0 +1,1 @@
+console.log('LocalStorage keys:', Object.keys(localStorage)); for(let i=0; i<localStorage.length; i++) { let key = localStorage.key(i); console.log(key + ':', JSON.parse(localStorage.getItem(key) || '{}')); }

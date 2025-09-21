@@ -1,0 +1,67 @@
+/* App.css - Custom styles for the smart home application */
+
+:root {
+  --appbar-height: 64px;
+  --appbar-height-mobile: 56px;
+  --appbar-height-landscape: 40px;
+}
+
+.App {
+  text-align: center;
+}
+
+/* Mobile touch and zoom optimizations */
+* {
+  touch-action: manipulation;
+}
+
+html, body {
+  /* Prevent double-tap zoom on mobile while allowing our custom gestures */
+  touch-action: manipulation;
+  /* Smooth scrolling for better mobile experience */
+  -webkit-overflow-scrolling: touch;
+  /* Prevent text selection interference with touch gestures */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* iOS Safari specific zoom fixes */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  /* Prevent zoom on input focus */
+  font-size: 16px;
+}
+
+/* Allow text selection for input fields and content areas */
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Improve touch targets for mobile */
+button, [role="button"], .clickable {
+  touch-action: manipulation;
+  /* Ensure minimum touch target size */
+/* min-height: 44px;
+  min-width: 44px;*/
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

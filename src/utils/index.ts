@@ -1,0 +1,1 @@
+export { initializeFrontendLogger, destroyFrontendLogger } from './frontendLogger';

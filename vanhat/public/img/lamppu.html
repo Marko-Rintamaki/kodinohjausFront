@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Lamppu Demo</title>
+<style>
+body { font-family: sans-serif; display:flex; flex-direction:column; align-items:center; gap:1rem; margin:40px; background:#111; color:#eee; }
+.lamp { width:160px; cursor:pointer; transition: transform .15s; }
+.lamp:active { transform:scale(.95); }
+.lamp svg { width:100%; height:auto; overflow:visible; }
+.lamp .outline,
+.lamp .core,
+.lamp .glow { transition: fill .35s, stroke .35s, opacity .4s, filter .6s; }
+
+.outline {
+  fill:transparent;
+  stroke:#ccc;
+  stroke-width:14;
+  stroke-linejoin:round;
+}
+.core {
+  fill:transparent;
+  stroke:#facc15;
+  stroke-width:4;
+  opacity:.3;
+}
+.glow {
+  fill:#fde68a;
+  opacity:0;
+  filter:none;
+}
+
+.lamp.on .outline {
+  stroke:#fbbf24;
+  filter: drop-shadow(0 0 6px #fbbf24) drop-shadow(0 0 18px #f59e0b);
+}
+.lamp.on .core {
+  fill:#fde68a;
+  opacity:1;
+  stroke:#fcd34d;
+}
+.lamp.on .glow {
+  opacity:.9;
+  animation: pulse 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px #fcd34d) drop-shadow(0 0 28px #f59e0b);
+}
+
+@keyframes pulse {
+  0%,100% { filter: drop-shadow(0 0 6px #fcd34d) drop-shadow(0 0 20px #f59e0b); opacity:.85; }
+  50% { filter: drop-shadow(0 0 10px #fcd34d) drop-shadow(0 0 34px #f59e0b); opacity:1; }
+}
+
+button { background:#1f2937; color:#eee; border:1px solid #374151; padding:.5rem 1rem; cursor:pointer; border-radius:6px; }
+button:hover { background:#273549; }
+</style>
+</head>
+<body>
+
+<h1>Lamppu Demo</h1>
+
+<div id="lamp" class="lamp" onclick="toggleLamp()"
+     title="Klikkaa lamppua">
+  <svg viewBox="0 0 512 512" role="img" aria-label="Light bulb">
+    <!-- Rungon ääriviiva -->
+    <path class="outline" d="M381.983,49.895c-37.391-35.141-86.367-52.742-137.734-49.52C150.639,6.2,75.014,84.286,72.092,178.149
+      c-2.156,69.547,34.375,133.578,95.344,167.117c15.156,8.344,24.57,24.367,24.57,41.828v60.914c0,17.648,14.352,32,32,32h64
+      c17.648,0,32-14.352,32-32v-60.914c0-17.445,9.484-33.508,24.766-41.93c58.742-32.406,95.234-94.156,95.234-161.156
+      C440.006,133.43,418.858,84.547,381.983,49.895z"/>
+    <!-- Sisempi kirkas ydin -->
+    <circle class="core" cx="256" cy="184" r="128"/>
+    <!-- Lisä glow (sama koko tai pienempi) -->
+    <circle class="glow" cx="256" cy="184" r="75"/>
+  </svg>
+</div>
+
+<button onclick="toggleLamp()">Vaihda tila</button>
+
+<script>
+function toggleLamp() {
+  const el = document.getElementById('lamp');
+  el.classList.toggle('on');
+}
+</script>
+
+</body>
+</html>

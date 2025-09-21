@@ -1,0 +1,78 @@
+/* View Toggle Panel */
+.view-toggle-panel {
+  position: fixed;
+  top: calc(var(--appbar-height, 64px) + 140px);
+  right: 20px;
+  background: rgba(17, 24, 39, 0.95);
+  color: #f1f5f9;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  z-index: 1100;
+  border: 1px solid #334155;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.view-toggle-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.view-toggle-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.view-toggle-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  font-size: 11px;
+}
+
+.view-toggle-option:hover {
+  background: rgba(55, 65, 81, 0.5);
+}
+
+.view-toggle-option input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.view-toggle-icon {
+  font-size: 12px;
+  width: 16px;
+  text-align: center;
+}
+
+/* Mobile adjustments */
+@media (max-width: 780px) {
+  .view-toggle-panel {
+    top: calc(var(--appbar-height-mobile, 56px) + 125px);
+    right: 16px;
+    min-width: 140px;
+    padding: 10px;
+  }
+  
+  .view-toggle-option {
+    font-size: 10px;
+  }
+  
+  .view-toggle-icon {
+    font-size: 11px;
+  }
+}

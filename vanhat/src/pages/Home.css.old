@@ -1,0 +1,82 @@
+/* Home page styles */
+.home-page {
+  width: 100vw;
+  height: calc(100vh - 64px); /* Vähennetään navbar-korkeus (MUI navbar on ~64px) */
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.floorplan-area {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  user-select: none;
+  touch-action: none; /* Estää selaimen omat zoom/pan -toiminnot */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floorplan-area:active {
+  cursor: grabbing;
+}
+
+.floorplan-container {
+  position: relative;
+  transform-origin: center center;
+  display: inline-block;
+}
+
+.floorplan-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Komponenttien responsivinen koko */
+.component-wrapper {
+  /* Käytetään vmin (viewport minimum) yksikköä joka skaalautuu pienimmän dimension mukaan */
+  --base-component-size: 4vmin;
+}
+
+.component-wrapper .lamp-component { 
+  width: var(--base-component-size);
+  height: var(--base-component-size);
+}
+
+.component-wrapper .small-component { 
+  width: calc(var(--base-component-size) * 0.8);
+  height: calc(var(--base-component-size) * 0.8);
+}
+
+.component-wrapper .large-component { 
+  width: calc(var(--base-component-size) * 1.5);
+  height: calc(var(--base-component-size) * 1.5);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .home-container h1 {
+    font-size: 2rem;
+  }
+  
+  .home-navigation {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .nav-card {
+    padding: 1.5rem;
+  }
+  
+  .home-page {
+    padding: 10px;
+  }
+}
