@@ -1,0 +1,22 @@
+
+BOSCH CONTROLLER - REKURSIIVINEN HAKU YHTEENVETO
+==============================================
+
+Käsitelty polkuja yhteensä: 8
+Onnistuneet: 8
+Epäonnistuneet: 0
+
+Onnistuneet polut:
+/application
+/dhwCircuits
+/gateway
+/heatingCircuits
+/heatSources
+/recordings
+/solarCircuits
+/system
+
+Epäonnistuneet polut:
+
+
+Suoritettu: 2025-09-21T12:33:48.509Z

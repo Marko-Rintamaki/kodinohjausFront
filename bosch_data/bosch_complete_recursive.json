@@ -1,0 +1,58 @@
+[
+  {
+    "path": "/application",
+    "success": true,
+    "data": {
+      "Error": "Function not exists."
+    }
+  },
+  {
+    "path": "/dhwCircuits",
+    "success": true,
+    "data": {
+      "Error": "Function not exists."
+    }
+  },
+  {
+    "path": "/gateway",
+    "success": true,
+    "data": {
+      "Error": "Function not exists."
+    }
+  },
+  {
+    "path": "/heatingCircuits",
+    "success": true,
+    "data": {
+      "Error": "Function not exists."
+    }
+  },
+  {
+    "path": "/heatSources",
+    "success": true,
+    "data": {
+      "Error": "Function not exists."
+    }
+  },
+  {
+    "path": "/recordings",
+    "success": true,
+    "data": {
+      "Error": "Function not exists."
+    }
+  },
+  {
+    "path": "/solarCircuits",
+    "success": true,
+    "data": {
+      "Error": "Function not exists."
+    }
+  },
+  {
+    "path": "/system",
+    "success": true,
+    "data": {
+      "Error": "Function not exists."
+    }
+  }
+]

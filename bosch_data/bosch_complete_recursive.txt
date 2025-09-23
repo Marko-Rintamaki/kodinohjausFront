@@ -1,0 +1,69 @@
+BOSCH CONTROLLER - REKURSIIVINEN HAKU
+====================================
+
+Käsitelty yhteensä: 8 polkua
+
+1. /application
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Function not exists."
+}
+
+---
+
+2. /dhwCircuits
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Function not exists."
+}
+
+---
+
+3. /gateway
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Function not exists."
+}
+
+---
+
+4. /heatingCircuits
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Function not exists."
+}
+
+---
+
+5. /heatSources
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Function not exists."
+}
+
+---
+
+6. /recordings
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Function not exists."
+}
+
+---
+
+7. /solarCircuits
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Function not exists."
+}
+
+---
+
+8. /system
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Function not exists."
+}
+
+---
+
