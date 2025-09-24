@@ -1,11 +1,7 @@
 import { io } from 'socket.io-client';
 
 console.log('🌡️ Bosch Controller - Manual Room Setpoint (PUT)');
-console.log('===============================================');sole.log('🌡️ Bosch Controller - Manual Room Setpoint (PUT)');
-console.log('===============================================');rt { io } from 'socket.io-client';
-
-console.log('� Bosch Controller - Järjestelmän tila');
-console.log('=====================================');
+console.log('===============================================');
 
 const socket = io('https://kodinohjaus.fi');
 let authToken = null;

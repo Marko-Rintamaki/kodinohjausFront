@@ -13,6 +13,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { SocketService } from "../services/SocketService";
 import { SocketContext, SocketContextValue } from "./SocketContextDef";
+import { updateGlobalUpdateStatus } from "../helpers/socketHelper";
 
 interface SocketProviderProps {
   children: React.ReactNode;
@@ -23,7 +24,7 @@ interface SocketProviderProps {
 
 export function SocketProvider({ 
   children, 
-  url = "https://kodinohjaus.fi", 
+  url = import.meta.env.VITE_BACKEND_URL || "https://kodinohjaus.fi", 
   token,
   autoAuth = true 
 }: SocketProviderProps) {
@@ -90,6 +91,9 @@ export function SocketProvider({
         console.log('📊 Global Status Update:', status);
         lastStatusUpdateRef.current = now;
       }
+      
+      // KRIITTINEN: Päivitä globaali status jotta onUpdateStatusChange callbacks toimivat
+      updateGlobalUpdateStatus(status);
     };
 
     // Authentication event handlers

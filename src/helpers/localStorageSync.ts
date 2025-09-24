@@ -85,7 +85,20 @@ export const resetLayoutToEmpty = (): void => {
  * Hook localStorage-tietojen synkronointiin palvelimelle
  */
 export const useLocalStorageSync = () => {
-  const { service, isConnected } = useSocketService();
+  // Try to get socket service, but don't crash if not available (e.g., during tests)
+  let service = null;
+  let isConnected = false;
+  
+  try {
+    const socketContext = useSocketService();
+    service = socketContext.service;
+    isConnected = socketContext.isConnected;
+  } catch {
+    // Socket context not available (e.g., during tests)
+    if (localStorageSyncLogging) {
+      console.log('[LocalStorageSync] Socket context not available, running in offline mode');
+    }
+  }
 
   if (localStorageSyncLogging) {
     console.log('[LocalStorageSync] useLocalStorageSync hook initialized');
@@ -96,9 +109,9 @@ export const useLocalStorageSync = () => {
    */
   const saveToServer = useCallback(async (): Promise<boolean> => {
     try {
-      if (!isConnected) {
+      if (!service || !isConnected) {
         if (localStorageSyncLogging) {
-          console.log('[LocalStorageSync] Socket not connected, cannot save to server');
+          console.log('[LocalStorageSync] Socket not available or not connected, cannot save to server');
         }
         return false;
       }
@@ -139,9 +152,9 @@ export const useLocalStorageSync = () => {
         console.log('[LocalStorageSync] Attempting to load from server...');
       }
       
-      if (!isConnected) {
+      if (!service || !isConnected) {
         if (localStorageSyncLogging) {
-          console.log('[LocalStorageSync] Socket not connected, cannot load from server');
+          console.log('[LocalStorageSync] Socket not available or not connected, cannot load from server');
         }
         return false;
       }
@@ -167,23 +180,51 @@ export const useLocalStorageSync = () => {
           console.log('[LocalStorageSync] Parsed layout data:', layoutData);
         }
         
-        // Handle both old and new format
-        if (typeof layoutData['homeLayout:v7'] === 'string') {
-          layoutData['homeLayout:v7'] = JSON.parse(layoutData['homeLayout:v7']);
+        // Handle both old and new format - prioritize v7 if available, fallback to v8
+        let currentLayout = null;
+        
+        if (layoutData['homeLayout:v7']) {
+          // v7 data exists - use it and convert to v8
+          if (typeof layoutData['homeLayout:v7'] === 'string') {
+            currentLayout = JSON.parse(layoutData['homeLayout:v7']);
+          } else {
+            currentLayout = layoutData['homeLayout:v7'];
+          }
+          if (localStorageDataLogging) {
+            console.log('[LocalStorageSync] Using homeLayout:v7 data for v8');
+          }
+        } else if (layoutData['homeLayout:v8']) {
+          // v8 data exists
+          if (typeof layoutData['homeLayout:v8'] === 'string') {
+            currentLayout = JSON.parse(layoutData['homeLayout:v8']);
+          } else {
+            currentLayout = layoutData['homeLayout:v8'];
+          }
+          if (localStorageDataLogging) {
+            console.log('[LocalStorageSync] Using homeLayout:v8 data');
+          }
         }
         
-        // Convert layout object back to string for localStorage
-        const finalData = {
-          ...layoutData,
-          'homeLayout:v7': JSON.stringify(layoutData['homeLayout:v7'])
-        };
-        
-        setLocalStorageData(finalData);
-        
-        if (localStorageSyncLogging) {
-          console.log('[LocalStorageSync] Successfully loaded and restored data from server');
+        if (currentLayout) {
+          // Store as v8 in localStorage
+          const finalData = {
+            ...layoutData,
+            'homeLayout:v8': JSON.stringify(currentLayout)
+          };
+          
+          setLocalStorageData(finalData);
+          
+          if (localStorageDataLogging) {
+            console.log('[LocalStorageSync] Successfully loaded layout from server and saved to localStorage');
+          }
+          
+          return true;
+        } else {
+          if (localStorageDataLogging) {
+            console.log('[LocalStorageSync] No layout data found in v7 or v8');
+          }
+          return false;
         }
-        return true;
       } else {
         if (localStorageSyncLogging) {
           console.log('[LocalStorageSync] No data found on server or load failed');

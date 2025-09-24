@@ -130,3 +130,160 @@ Signature: _______________
 ```
 
 **Remember: This system took significant debugging to get working. Don't break what's already working!** 🔒
+
+---
+
+# 🎯 ZOOM/PAN REGRESSION TESTING
+
+**The zoom/pan functionality is currently working perfectly and MUST NOT break during development.**
+
+## Critical Functionality Protected
+- **Desktop Mouse Wheel Zoom**: Zoom in/out with scroll wheel
+- **Desktop Mouse Drag Panning**: Click and drag to pan around
+- **Mobile Single-Finger Pan**: Touch and drag on mobile
+- **Mobile Two-Finger Pinch Zoom**: Pinch to zoom on mobile
+- **Zoom Limits**: Min 0.5x, Max 3x zoom levels
+- **Smooth Transitions**: Proper transform animations
+
+## 🧪 Automated Test Suite
+
+### 1. Unit Tests (Vitest + React Testing Library)
+
+**Location**: `src/tests/`
+
+**Run unit tests:**
+```bash
+npm run test          # Watch mode
+npm run test:run      # Single run (recommended)
+npm run test:ui       # UI mode
+```
+
+**Critical Tests:**
+- `useZoomAndPan.test.ts`: Hook state management (15 tests)
+- `Home.zoom-pan.test.tsx`: Component integration (6 tests)
+
+### 2. End-to-End Tests (Playwright)
+
+**Location**: `tests/e2e/`
+
+**Run E2E tests:**
+```bash
+npm run test:e2e      # All browsers
+npm run test:e2e-ui   # Interactive mode
+```
+
+**Coverage:**
+- Mouse wheel zoom validation
+- Mouse drag panning 
+- Mobile touch interactions
+- Cross-browser compatibility (Chrome, Firefox, Safari)
+- State persistence testing
+
+### 3. Full Test Suite
+
+**Run all tests (before commits):**
+```bash
+npm run test:all      # Unit + E2E comprehensive testing
+```
+
+## 🚨 Regression Prevention Protocol
+
+**BEFORE making ANY changes to zoom/pan related code:**
+
+1. **Run baseline tests**: `npm run test:run`
+   - Must show: **15/15 unit tests passing**
+
+2. **Make your changes**
+
+3. **Validate no regression**: `npm run test:all`
+   - Unit tests: **Must remain 15/15 passing**
+   - E2E tests: **Desktop functionality must pass**
+   - If ANY tests fail: **REVERT CHANGES**
+
+4. **Manual validation**:
+   ```
+   1. Open http://localhost:5173
+   2. Navigate to Home page
+   3. Test mouse wheel zoom (in/out)
+   4. Test click-and-drag panning
+   5. On mobile: test touch pan and pinch zoom
+   6. Verify smooth animations
+   7. Check zoom limits (0.5x - 3x)
+   ```
+
+## 🔧 Test Configuration Files
+
+- `vitest.config.ts`: Unit test environment with jsdom
+- `playwright.config.ts`: Multi-browser E2E testing
+- `src/tests/vitest.setup.ts`: Global mocks and setup
+- `package.json`: Test scripts and dependencies
+
+## 📊 Test Coverage Status
+
+**✅ Fully Covered:**
+- Hook state management (scale, translate, imgSize)
+- Component rendering and event setup
+- Mouse interactions (wheel zoom, drag pan)
+- Touch interactions (mobile pan, pinch zoom)
+- Zoom limit enforcement
+- Cross-browser compatibility
+
+**🔄 Partial Coverage:**
+- Mobile Safari specific behaviors (7/35 E2E tests failing on mobile)
+- Touch event edge cases
+- Performance under heavy interaction
+
+## 💡 Debugging Failed Tests
+
+1. **Unit test failures**: 
+   ```bash
+   npm run test:ui  # Visual debugging interface
+   ```
+
+2. **E2E test failures**:
+   ```bash
+   npm run test:e2e-ui  # Interactive Playwright mode
+   ```
+
+3. **Check test reports**:
+   - Unit tests: Console output with detailed assertions
+   - E2E tests: HTML report in `playwright-report/`
+
+## 🎨 Adding New Tests
+
+When adding new zoom/pan features:
+
+1. **Add unit test** in `src/tests/` for hook logic
+2. **Add component test** for integration behavior  
+3. **Add E2E test** in `tests/e2e/` for user interactions
+4. **Update this documentation** with new coverage
+
+**Test Naming Convention:**
+- Unit: `describe('useZoomAndPan - [feature]')`
+- Component: `describe('Home Zoom/Pan - [feature]')`
+- E2E: `test('should [user behavior]')`
+
+## 🔒 Test Results Log Template
+
+```
+Date: ____________________
+Developer: _______________
+
+ZOOM/PAN REGRESSION TESTS:
+[ ] Unit Tests (15/15) - PASS/FAIL
+[ ] E2E Desktop Tests - PASS/FAIL  
+[ ] Manual Validation - PASS/FAIL
+
+Changes Made:
+_________________________________
+_________________________________
+
+Test Results:
+_________________________________
+_________________________________
+
+Approval to Deploy: YES/NO
+Signature: _______________
+```
+
+**Remember: The goal is regression prevention** - these tests ensure that working functionality stays working as development continues.

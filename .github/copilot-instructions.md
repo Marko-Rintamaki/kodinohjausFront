@@ -1,5 +1,45 @@
 # Kodinohjaus Smart Home System - AI Agent Instructions
 
+## 🚨 CRITICAL DEVELOPMENT WORKFLOW
+
+### Code Migration Protocol (vanhat/ → src/)
+**MANDATORY PROCESS** when migrating legacy code:
+
+1. **📋 ANALYZE FIRST**: Create detailed functional analysis of legacy code before touching anything
+   - Document ALL features, components, hooks, state management
+   - Map data models, interfaces, and dependencies  
+   - Identify critical functionality and integration points
+   - Create migration checklist with priority order
+
+2. **🔄 ONE FUNCTION AT A TIME**: Never migrate multiple features simultaneously
+   - Pick ONE specific function from analysis (e.g., "add lamps functionality")
+   - Implement ONLY that function in new code
+   - Maintain feature parity with legacy version
+   - Document any changes or improvements made
+
+3. **✅ TEST AFTER EACH MIGRATION**: Comprehensive testing is mandatory
+   - Run ALL existing tests: `npx vitest run` 
+   - Ensure 100% test pass rate (26/26 tests currently)
+   - Add new tests for the migrated functionality
+   - Test integration with existing features
+   - Verify no regressions in zoom/pan/auth systems
+
+4. **📚 UPDATE DOCUMENTATION**: After successful migration
+   - Update this instructions file with new capabilities
+   - Document any API changes or new patterns
+   - Add testing instructions for new functionality
+   - Mark completed features in migration checklist
+
+5. **🔒 MAINTAIN QUALITY**: Never compromise on code quality
+   - Follow existing TypeScript patterns and interfaces
+   - Maintain proper error handling and logging
+   - Keep separation of concerns (components, hooks, helpers)
+   - Ensure responsive design and mobile compatibility
+
+**NEVER**: Skip analysis, migrate multiple features simultaneously, skip testing, leave failing tests
+
+**Reference**: See `VANHAN_KOODIN_ANALYYSI.md` for complete legacy code analysis and migration roadmap.
+
 ## Architecture Overview
 
 This is a **TypeScript backend + React frontend** smart home control system with real-time Socket.IO communication.
@@ -96,9 +136,16 @@ npx tsc --noEmit  # Type checking without compilation
 ### Frontend Development  
 ```bash
 cd kodinohjausFront
-npm run dev  # Vite dev server on :5173
+# CRITICAL: DO NOT START dev server - user has it running!
+# npm run dev  # ALREADY RUNNING on :5173 by user
 npm run build  # Production build to dist/
 ```
+
+#### ⚠️ DEV SERVER WARNING
+**NEVER run `npm run dev` or `npm start`** - the development server is already running on port 5173.
+- **Current status**: Vite dev server active at `http://81.88.23.96:5173/`
+- **Mobile access**: Works on all devices via public IP
+- **If you need to restart**: Ask user first, don't kill processes
 
 ### Testing Critical Systems
 ```bash
@@ -147,9 +194,11 @@ throw new Error('User-facing message');
 
 ## Critical Notes for AI Agents
 
-1. **Field naming**: Use `type` not `requestType` in Socket.IO requests
-2. **Authentication**: Location auth first, password fallback for `'koti2025'`
-3. **Service boundaries**: Don't mix service responsibilities  
-4. **Log separation**: Backend vs frontend logs in different tables
-5. **Hot reload**: Backend auto-restarts on file changes via nodemon
-6. **Production URL**: `https://kodinohjaus.fi` serves both API and React app
+1. **🚨 NEVER START DEV SERVER**: User has `npm run dev` already running on port 5173 - DO NOT start it again
+2. **Field naming**: Use `type` not `requestType` in Socket.IO requests
+3. **Authentication**: Location auth first, password fallback for `'koti2025'`
+4. **Service boundaries**: Don't mix service responsibilities  
+5. **Log separation**: Backend vs frontend logs in different tables
+6. **Hot reload**: Backend auto-restarts on file changes via nodemon
+7. **Production URL**: `https://kodinohjaus.fi` serves both API and React app
+8. **Mobile access**: Dev server accessible at `http://81.88.23.96:5173/` for mobile testing
