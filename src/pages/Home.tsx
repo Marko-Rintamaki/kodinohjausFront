@@ -1176,7 +1176,7 @@ export const Home: React.FC = () => {
           <TemperatureCard
             roomId={selectedTemperatureIcon.roomId}
             roomName={selectedTemperatureIcon.roomName || 'Huone'}
-            authenticated={true}
+            authenticated={!!localStorage.getItem('authToken')}
             minTemp={18}
             maxTemp={25}
             step={0.5}

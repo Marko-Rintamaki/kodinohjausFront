@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getUpdateStatus, onUpdateStatusChange, getSocket, isSocketConnected } from '../../helpers/socketHelper';
+import { getUpdateStatus, onUpdateStatusChange, isSocketConnected } from '../../helpers/socketHelper';
+import { useSocketService } from '../../hooks/useSocket';
 import './TemperatureCard.css';
 
 // Debug logging flags - set to true to enable specific logging categories:
 // temperatureCardLogging: TemperatureCard cache operations and database queries
-const temperatureCardLogging = false;
+const temperatureCardLogging = true;
 
 // Shared cache for setpoint data to avoid multiple database queries
 const SETPOINT_CACHE_KEY = 'temperatureSetpoints';
@@ -65,8 +66,36 @@ const clearSetpointCache = () => {
 // Make clearSetpointCache available globally for debugging
 (window as typeof window & { clearTemperatureCache?: () => void }).clearTemperatureCache = clearSetpointCache;
 
+// Wait for socket connection helper
+const waitForSocketConnection = (): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    const startTime = Date.now();
+    const timeout = 5000; // 5 seconds timeout
+    
+    const checkConnection = () => {
+      if (isSocketConnected()) {
+        if (temperatureCardLogging) {
+          console.log('[SocketWait] Socket connected, proceeding with request');
+        }
+        resolve();
+      } else if (Date.now() - startTime > timeout) {
+        if (temperatureCardLogging) {
+          console.log('[SocketWait] Socket connection timeout after 5 seconds');
+        }
+        reject(new Error('Socket connection timeout'));
+      } else {
+        if (temperatureCardLogging) {
+          console.log('[SocketWait] Waiting for socket connection...');
+        }
+        setTimeout(checkConnection, 500);
+      }
+    };
+    checkConnection();
+  });
+};
+
 // Shared function to fetch setpoints once and cache the result
-const fetchAllSetpoints = async (): Promise<Record<string, number>> => {
+const fetchAllSetpoints = async (socketService: any): Promise<Record<string, number>> => { // eslint-disable-line @typescript-eslint/no-explicit-any
   // Check localStorage cache first
   const cachedData = getCachedSetpoints();
   if (cachedData) {
@@ -85,89 +114,86 @@ const fetchAllSetpoints = async (): Promise<Record<string, number>> => {
     console.log('[SharedSetpoint] No valid cache found, making new database query');
   }
 
-  // Create new request promise
-  setpointPromise = new Promise<Record<string, number>>((resolve, reject) => {
+  // Create new request promise using sendRequest
+  setpointPromise = new Promise<Record<string, number>>((resolve) => {
     if (temperatureCardLogging) {
-    console.log('Starting new setpoint database query...');
-  }
+      console.log('Starting new setpoint database query...');
+    }
     
-    const waitForSocket = () => {
-      return new Promise<void>((socketResolve) => {
-        const checkConnection = () => {
-          if (isSocketConnected()) {
-            if (temperatureCardLogging) {
-              console.log('[SharedSetpoint] Socket connected, proceeding with query');
-            }
-            socketResolve();
-          } else {
-            if (temperatureCardLogging) {
-              console.log('[SharedSetpoint] Waiting for socket connection...');
-            }
-            setTimeout(checkConnection, 500);
-          }
-        };
-        checkConnection();
-      });
-    };
-
-    waitForSocket().then(() => {
-      const command = {
-        id: "sqlQuery",
-        query: 'SELECT * FROM ifserver.roomsetpointtemp ORDER BY idroomsetpointtemp DESC LIMIT 1;',
-        db: 'ifserver'
-      };
-      
-      const socket = getSocket();
-      if (socket && socket.connected) {
-        // Set up one-time response listener
-        socket.once('controlResponse', (response) => {
+    const performRequest = async () => {
+      try {
+        // Check socket connection - if not connected, use defaults immediately
+        if (!isSocketConnected()) {
           if (temperatureCardLogging) {
-            console.log('[SharedSetpoint] Response received:', response);
+            console.log('[SharedSetpoint] Socket not connected, using default setpoints');
           }
-          
-          let row = null;
-          if (response && response.success) {
-            if (response.data && response.data.result && Array.isArray(response.data.result)) {
-              row = response.data.result[0];
-              if (temperatureCardLogging) {
-                console.log('[SharedSetpoint] Found data in response.data.result[0]:', row);
-              }
-            }
-          }
+          const defaults = { mh1: 20, mh2: 20, mh3: 20, ohetkt: 20, phkhh: 20 };
+          setCachedSetpoints(defaults);
+          resolve(defaults);
+          return;
+        }
 
-          if (row) {
-            // Extract all room setpoints from the row
-            const setpoints: Record<string, number> = {};
-            Object.keys(row).forEach(column => {
-              if (column !== 'idroomsetpointtemp' && column !== 'room_id') {
-                const key = column.toLowerCase();
-                setpoints[key] = Number(row[column]);
-              }
-            });
-            
-            if (temperatureCardLogging) {
-              console.log('[SharedSetpoint] Parsed setpoints:', setpoints);
-            }
-            setCachedSetpoints(setpoints);  // Cache to localStorage
-            resolve(setpoints);
-          } else {
-            if (temperatureCardLogging) {
-              console.log('[SharedSetpoint] No data found, using defaults');
-            }
-            const defaults = { mh1: 20, mh2: 20, mh3: 20, ohetkt: 20, phkhh: 20 };
-            setCachedSetpoints(defaults);
-            resolve(defaults);
-          }
+        // Wait for socket connection first (with timeout)
+        await waitForSocketConnection();
+        
+        const requestData = {
+          sql: 'SELECT * FROM ifserver.roomsetpointtemp ORDER BY idroomsetpointtemp DESC LIMIT 1;',
+          params: []
+        };
+        
+        // Use socketService.sendRequest() EXACTLY like lamps do!
+        const response = await socketService.sendRequest({
+          type: 'sql_query',
+          data: requestData,
+          token: localStorage.getItem('authToken') || undefined
         });
         
-        socket.emit('control', command);
         if (temperatureCardLogging) {
-          console.log('[SharedSetpoint] Query sent:', command);
+          console.log('[SharedSetpoint] Response received:', response);
         }
-      } else {
-        reject(new Error('Socket not connected'));
+        
+        let row = null;
+        if (response && response.success) {
+          if (response.data && Array.isArray(response.data)) {
+            row = response.data[0];
+            if (temperatureCardLogging) {
+              console.log('[SharedSetpoint] Found data in response.data[0]:', row);
+            }
+          }
+        }
+
+        if (row) {
+          // Extract all room setpoints from the row
+          const setpoints: Record<string, number> = {};
+          Object.keys(row).forEach(column => {
+            if (column !== 'idroomsetpointtemp' && column !== 'room_id') {
+              const key = column.toLowerCase();
+              setpoints[key] = Number(row[column]);
+            }
+          });
+          
+          if (temperatureCardLogging) {
+            console.log('[SharedSetpoint] Parsed setpoints:', setpoints);
+          }
+          setCachedSetpoints(setpoints);  // Cache to localStorage
+          resolve(setpoints);
+        } else {
+          if (temperatureCardLogging) {
+            console.log('[SharedSetpoint] No data found, using defaults');
+          }
+          const defaults = { mh1: 20, mh2: 20, mh3: 20, ohetkt: 20, phkhh: 20 };
+          setCachedSetpoints(defaults);
+          resolve(defaults);
+        }
+      } catch (error) {
+        console.error('[SharedSetpoint] Database query failed:', error);
+        const defaults = { mh1: 20, mh2: 20, mh3: 20, ohetkt: 20, phkhh: 20 };
+        setCachedSetpoints(defaults);
+        resolve(defaults); // Resolve with defaults instead of rejecting
       }
-    }).catch(reject);
+    };
+    
+    performRequest();
   });
 
   return setpointPromise;
@@ -206,6 +232,9 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
   isModal = false,
   onClose
 }) => {
+  // USE THE SAME SOCKET API AS LAMPS!
+  const { service: socketService } = useSocketService();
+  
   const [temperatureData, setTemperatureData] = useState<TemperatureData>({
     current: null,
     setpoint: null,
@@ -278,6 +307,9 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
           return;
         }
 
+        // Wait for socket connection first
+        await waitForSocketConnection();
+
         // Create INSERT query with ALL room values
         const values = [
           allCurrentSetpoints.mh1 || 20,
@@ -287,21 +319,30 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
           allCurrentSetpoints.phkhh || 20
         ];
 
-        const command = {
-          id: "sqlQuery",
-          query: `INSERT INTO ifserver.roomsetpointtemp (mh1, mh2, mh3, ohetkt, phkhh) VALUES (${values.join(', ')});`,
-          db: 'ifserver'
+        const requestData = {
+          query: `INSERT INTO ifserver.roomsetpointtemp (mh1, mh2, mh3, ohetkt, phkhh) VALUES (?, ?, ?, ?, ?);`,
+          params: values
         };
         
-        const socket = getSocket();
-        if (socket && socket.connected) {
-          socket.emit('control', command);
+        // Use socketService.sendRequest() EXACTLY like lamps do!
+        const response = await socketService.sendRequest({
+          type: 'database_write',
+          data: requestData,
+          token: localStorage.getItem('authToken') || undefined
+        });
+        
+        if (temperatureCardLogging) {
+          console.log('All rooms setpoint update command sent:', requestData);
+          console.log('Values inserted:', { mh1: values[0], mh2: values[1], mh3: values[2], ohetkt: values[3], phkhh: values[4] });
+          console.log('Database write response:', response);
+        }
+        
+        if (response && response.success) {
           if (temperatureCardLogging) {
-            console.log('All rooms setpoint update command sent:', command);
-            console.log('Values inserted:', { mh1: values[0], mh2: values[1], mh3: values[2], ohetkt: values[3], phkhh: values[4] });
+            console.log('✅ Setpoint update successful');
           }
         } else {
-          console.error('Socket not connected');
+          console.error('❌ Setpoint update failed:', response.error);
         }
       } catch (error) {
         console.error('Failed to update setpoints:', error);
@@ -388,7 +429,38 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
       }
 
       try {
-        const allSetpoints = await fetchAllSetpoints();
+        // First check if we have cached data
+        const cachedData = getCachedSetpoints();
+        if (cachedData) {
+          const roomKey = getRoomKey(roomId);
+          if (cachedData[roomKey] !== undefined) {
+            if (temperatureCardLogging) {
+              console.log(`[TemperatureCard ${roomId}] Using cached setpoint for ${roomKey}:`, cachedData[roomKey]);
+            }
+            setTemperatureData(prev => ({
+              ...prev,
+              setpoint: cachedData[roomKey]
+            }));
+            setIsLoading(false);
+            return;
+          }
+        }
+
+        // If no cache and socket is not connected, use defaults immediately
+        if (!isSocketConnected()) {
+          if (temperatureCardLogging) {
+            console.log(`[TemperatureCard ${roomId}] Socket not connected, using default setpoint`);
+          }
+          setTemperatureData(prev => ({
+            ...prev,
+            setpoint: 20 // Default to 20°C
+          }));
+          setIsLoading(false);
+          return;
+        }
+
+        // Try to fetch from database only if socket is connected
+        const allSetpoints = await fetchAllSetpoints(socketService);
         const roomKey = getRoomKey(roomId);
         
         if (allSetpoints[roomKey] !== undefined) {

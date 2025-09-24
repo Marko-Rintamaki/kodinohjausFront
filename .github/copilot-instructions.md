@@ -1,5 +1,9 @@
 # Kodinohjaus Smart Home System - AI Agent Instructions
 
+## 🚨 CRITICAL BACKEND INFORMATION
+**Backend Location**: https://kodinohjaus.fi (NOT localhost:3000!)
+**Socket Communication**: ONE shared socket for ALL features - DO NOT create additional sockets!
+
 ## 🚨 CRITICAL DEVELOPMENT WORKFLOW
 
 ### Code Migration Protocol (vanhat/ → src/)
