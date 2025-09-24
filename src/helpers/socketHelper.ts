@@ -8,12 +8,16 @@ import { io, Socket } from 'socket.io-client';
 // socketIncomingLogging: Incoming messages and responses
 // updateStatusLogging: UpdateStatus data changes
 // dataQueryLogging: DataQuery requests and responses
+// debugCallbackLogging: DEBUG callback and status function logging
+// krittinenLogging: KRIITTINEN status update logging
 const socketConnectionLogging = false;
 const socketTokenLogging = false;
 const socketOutgoingLogging = false;
 const socketIncomingLogging = false;
-const updateStatusLogging = true;
+const updateStatusLogging = false;
 const dataQueryLogging = false;
+const debugCallbackLogging = false;
+const krittinenLogging = false;
 
 // Socket instance - pidetään globaalina, jotta se on saatavilla kaikkialla
 let socket: Socket | null = null;
@@ -40,13 +44,17 @@ interface SocketCallbacks {
 
 // Palauttaa nykyisen updateStatus datan
 export const getUpdateStatus = (): any => {
-  console.log('🔍 [DEBUG] getUpdateStatus called, returning:', globalUpdateStatus);
+  if (debugCallbackLogging) {
+    console.log('🔍 [DEBUG] getUpdateStatus called, returning:', globalUpdateStatus);
+  }
   return globalUpdateStatus;
 };
 
 // Kuuntelee updateStatus muutoksia
 export const onUpdateStatusChange = (callback: (data: any) => void): (() => void) => {
-  console.log('🔍 [DEBUG] onUpdateStatusChange called, registering callback. Total callbacks will be:', updateStatusCallbacks.length + 1);
+  if (debugCallbackLogging) {
+    console.log('🔍 [DEBUG] onUpdateStatusChange called, registering callback. Total callbacks will be:', updateStatusCallbacks.length + 1);
+  }
   updateStatusCallbacks.push(callback);
   
   // Palauta cleanup funktio
@@ -54,24 +62,39 @@ export const onUpdateStatusChange = (callback: (data: any) => void): (() => void
     const index = updateStatusCallbacks.indexOf(callback);
     if (index > -1) {
       updateStatusCallbacks.splice(index, 1);
-      console.log('🔍 [DEBUG] Callback removed, remaining callbacks:', updateStatusCallbacks.length);
+      if (debugCallbackLogging) {
+        console.log('🔍 [DEBUG] Callback removed, remaining callbacks:', updateStatusCallbacks.length);
+      }
     }
   };
 };
 
 // Funktio updateStatus:n päivittämiseen - exportattu jotta useAppSocket voi kutsua sitä
 export const updateGlobalUpdateStatus = (newStatus: any): void => {
-  console.log('🔄 [UpdateStatus] KRIITTINEN: päivitetään globalUpdateStatus:', newStatus);
-  console.log('🔄 [UpdateStatus] Callbacks määrä:', updateStatusCallbacks.length);
+  if (updateStatusLogging) {
+    if (krittinenLogging) {
+      console.log('🔄 [UpdateStatus] KRIITTINEN: päivitetään globalUpdateStatus:', newStatus);
+      console.log('🔄 [UpdateStatus] Callbacks määrä:', updateStatusCallbacks.length);
+    }
+  }
+  
+  // Debug: Tarkista onko Nilan-dataa
+  if (newStatus?.Nilan) {
+    if (updateStatusLogging) console.log('🔍 [UpdateStatus] Nilan-data löytyi:', newStatus.Nilan);
+  } else {
+    if (updateStatusLogging) console.log('🔍 [UpdateStatus] EI Nilan-dataa statusupdate:ssa. Keys:', Object.keys(newStatus || {}));
+  }
   
   if (updateStatusLogging) {
-    console.log('🔄 [UpdateStatus] päivitetty:', newStatus);
+    if (krittinenLogging) {
+      console.log('🔄 [UpdateStatus] päivitetty:', newStatus);
+    }
   }
   globalUpdateStatus = newStatus;
   
   // Ilmoita kaikille kuuntelijoille
   updateStatusCallbacks.forEach((callback, index) => {
-    console.log(`🔄 [UpdateStatus] Kutsutaan callback ${index}`);
+    if (updateStatusLogging) console.log(`🔄 [UpdateStatus] Kutsutaan callback ${index}`);
     try {
       callback(newStatus);
     } catch (error) {
@@ -146,7 +169,9 @@ const SOCKET_CONFIG = {
  */
 export const initializeAutoSocket = async (): Promise<void> => {
   if (socketConnectionLogging) {
-    console.log('🚀 [Connection] Initializing automatic socket connection...');
+    if (socketConnectionLogging) {
+      console.log('🚀 [Connection] Initializing automatic socket connection...');
+    }
   }
   
   try {
@@ -157,12 +182,16 @@ export const initializeAutoSocket = async (): Promise<void> => {
     initializeSocket(currentToken || undefined, {
       onConnect: () => {
         if (socketConnectionLogging) {
-          console.log('✅ [Connection] Socket connected automatically with token:', currentToken ? 'present' : 'none');
+          if (socketConnectionLogging) {
+            console.log('✅ [Connection] Socket connected automatically with token:', currentToken ? 'present' : 'none');
+          }
         }
       },
       onDisconnect: () => {
         if (socketConnectionLogging) {
-          console.log('❌ [Connection] Socket disconnected');
+          if (socketConnectionLogging) {
+            console.log('❌ [Connection] Socket disconnected');
+          }
         }
       },
       onError: (error: any) => {
@@ -172,13 +201,17 @@ export const initializeAutoSocket = async (): Promise<void> => {
       },
       onAuthenticationResult: (data: any) => {
         if (socketTokenLogging) {
-          console.log('🔐 [Token] Auto-authentication result:', data);
+          if (socketTokenLogging) {
+            console.log('🔐 [Token] Auto-authentication result:', data);
+          }
         }
         if (data.token) {
           // Tallenna uusi token ja reconnect
           localStorage.setItem('authToken', data.token);
           if (socketTokenLogging) {
-            console.log('🔄 [Token] updated - reconnecting with new token...');
+            if (socketTokenLogging) {
+              console.log('🔄 [Token] updated - reconnecting with new token...');
+            }
           }
           initializeSocket(data.token, {});
         }
@@ -205,7 +238,9 @@ export const startTokenRefresh = (): void => {
   // Yritä päivittää token 15 minuutin välein
   const refreshInterval = setInterval(async () => {
     if (socketTokenLogging) {
-      console.log('🔄 [Token] Starting token refresh...');
+      if (socketTokenLogging) {
+        console.log('🔄 [Token] Starting token refresh...');
+      }
     }
     
     try {
@@ -213,37 +248,49 @@ export const startTokenRefresh = (): void => {
       
       if (!isTokenValid()) {
         if (socketTokenLogging) {
-          console.log('🔄 [Token] expired - attempting re-authentication...');
+          if (socketTokenLogging) {
+            console.log('🔄 [Token] expired - attempting re-authentication...');
+          }
         }
         
         const authResult = await attemptAuthentication();
         if (authResult.success && authResult.token) {
           if (socketTokenLogging) {
-            console.log('✅ [Token] refreshed successfully');
+            if (socketTokenLogging) {
+              console.log('✅ [Token] refreshed successfully');
+            }
           }
           
           // Reconnect socket with new token
           const currentToken = localStorage.getItem('authToken');
           if (currentToken && socket) {
             if (socketTokenLogging) {
-              console.log('🔄 [Token] Reconnecting socket with refreshed token...');
+              if (socketTokenLogging) {
+                console.log('🔄 [Token] Reconnecting socket with refreshed token...');
+              }
             }
             initializeSocket(currentToken, {
               onConnect: () => {
                 if (socketTokenLogging) {
-                  console.log('✅ [Token] Socket reconnected with fresh token');
+                  if (socketTokenLogging) {
+                    console.log('✅ [Token] Socket reconnected with fresh token');
+                  }
                 }
               }
             });
           }
         } else {
           if (socketTokenLogging) {
-            console.log('ℹ️ [Token] refresh failed - user will remain as viewer');
+            if (socketTokenLogging) {
+              console.log('ℹ️ [Token] refresh failed - user will remain as viewer');
+            }
           }
         }
       } else {
         if (socketTokenLogging) {
-          console.log('✅ [Token] still valid');
+          if (socketTokenLogging) {
+            console.log('✅ [Token] still valid');
+          }
         }
       }
     } catch (error) {

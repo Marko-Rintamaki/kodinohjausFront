@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import { SocketProvider } from '../contexts/SocketContext';
-import TemperatureCard from '../components/TemperatureCard';
+import TemperatureCard from '../components/hvac/TemperatureCard';
 import * as socketHelper from '../helpers/socketHelper';
 
 // Real statusupdate data from the production system

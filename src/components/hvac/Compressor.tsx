@@ -9,143 +9,6 @@ interface CompressorProps {
   compressorId?: string; // ID for identifying specific compressor in status data
 }
 
-const ensureStyles = (() => {
-  let injected = false;
-  return () => {
-    if (injected || typeof document === 'undefined') return;
-    const style = document.createElement('style');
-    style.dataset.compressorStyles = 'true';
-    style.textContent = `
-      .compressor-root { 
-        position: relative; 
-        user-select: none; 
-        width: 80px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        background: none !important;
-      }
-      .compressor-root::before {
-        display: none !important;
-      }
-      .compressor-unit {
-        position: relative;
-        z-index: 1;
-        transition: all 0.3s ease;
-      }
-      .compressor-unit svg { 
-        width: 100%; 
-        height: auto; 
-        overflow: visible; 
-        display: block;
-      }
-      .compressor-body { 
-        fill: #4a5568; 
-        stroke: #2d3748; 
-        stroke-width: 2; 
-        transition: all 0.3s ease; 
-      }
-      .compressor-piston { 
-        fill: #718096; 
-        stroke: #2d3748; 
-        stroke-width: 1; 
-        transition: all 0.3s ease;
-      }
-      .compressor-motor { 
-        fill: #e53e3e; 
-        stroke: #c53030; 
-        stroke-width: 2; 
-        transition: all 0.3s ease;
-      }
-      .compressor-pipes { 
-        fill: none; 
-        stroke: #4a5568; 
-        stroke-width: 3; 
-        stroke-linecap: round;
-        transition: all 0.3s ease;
-      }
-      .compressor-pressure-lines {
-        fill: none;
-        stroke: #718096;
-        stroke-width: 1;
-        stroke-dasharray: 2,2;
-        opacity: 0.5;
-        transition: all 0.3s ease;
-      }
-      
-      /* Running state */
-      .compressor-root.running .compressor-body { 
-        fill: #3182ce; 
-        stroke: #2c5aa0;
-        filter: drop-shadow(0 0 8px #3182ce);
-      }
-      .compressor-root.running .compressor-motor { 
-        fill: #38a169; 
-        stroke: #2f855a;
-        filter: drop-shadow(0 0 6px #38a169);
-      }
-      .compressor-root.running .compressor-piston { 
-        animation: pistonMove 0.6s linear infinite;
-        filter: drop-shadow(0 0 4px #718096);
-      }
-      .compressor-root.running .compressor-pipes { 
-        stroke: #3182ce;
-        filter: drop-shadow(0 0 4px #3182ce);
-      }
-      .compressor-root.running .compressor-pressure-lines {
-        stroke: #38a169;
-        opacity: 1;
-        animation: pressurePulse 0.8s ease-in-out infinite;
-      }
-      
-      @keyframes pistonMove {
-        0%, 50% { transform: translateY(0px); }
-        25% { transform: translateY(-2px); }
-        75% { transform: translateY(2px); }
-      }
-      
-      @keyframes pressurePulse {
-        0%, 100% { opacity: 0.3; }
-        50% { opacity: 1; }
-      }
-      
-      .compressor-status {
-        font-size: 10px;
-        font-weight: 600;
-        text-align: center;
-        padding: 2px 6px;
-        border-radius: 8px;
-        min-width: 50px;
-        color: white;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        transition: all 0.3s ease;
-      }
-      .compressor-status.off {
-        background: #718096;
-        color: #f7fafc;
-      }
-      .compressor-status.running {
-        background: linear-gradient(135deg, #e53e3e, #3182ce);
-        animation: statusPulse 2s ease-in-out infinite;
-      }
-      
-      @keyframes statusPulse {
-        0%, 100% { 
-          box-shadow: 0 0 6px rgba(229, 62, 62, 0.6);
-          transform: scale(1);
-        }
-        50% { 
-          box-shadow: 0 0 12px rgba(229, 62, 62, 0.8);
-          transform: scale(1.02);
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    injected = true;
-  };
-})();
-
 const Compressor: React.FC<CompressorProps> = ({
   size = 80,
   className = '',
@@ -153,94 +16,138 @@ const Compressor: React.FC<CompressorProps> = ({
   title = 'Kompressori',
   compressorId = 'default'
 }) => {
-  ensureStyles();
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(false); // Aloitus: pois päältä
 
   useEffect(() => {
-    // Extract compressor status from update data
-    const extractCompressorStatus = (statusData: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
-      // Look for AC compressor status
-      // You can customize this logic based on your actual data structure
-      if (statusData.AirConditioner && Array.isArray(statusData.AirConditioner)) {
-        for (const acGroup of statusData.AirConditioner) {
-          if (acGroup.paths && Array.isArray(acGroup.paths)) {
-            const compressorPath = acGroup.paths.find((path: any) => // eslint-disable-line @typescript-eslint/no-explicit-any
-              path.id === `/compressor/${compressorId}/status` || 
-              path.id === '/compressor/status' ||
-              path.id === '/hvac/compressor/running'
-            );
-            if (compressorPath) {
-              //console.log('[Compressor] status value:', compressorPath.value);
-              return compressorPath.value === 'running' || compressorPath.value === true || compressorPath.value > 0;
+    const updateRunning = () => {
+      const status = getUpdateStatus();
+      //console.log('Compressor status update:', status, 'compressorId:', compressorId);
+      
+      let running = false;
+      
+      // Kokeillaan hakea Nilan-datasta rekisteri 4706 (Nilan ilmanvaihto kompressori)
+      if (status?.Nilan && Array.isArray(status.Nilan)) {
+        for (const nilanGroup of status.Nilan) {
+          if (nilanGroup.registers && Array.isArray(nilanGroup.registers)) {
+            const register4706 = nilanGroup.registers.find((reg: { register: string; value: string }) => reg.register === "4706");
+            if (register4706) {
+              const value = parseInt(register4706.value);
+              //console.log('Found Nilan register 4706 value:', value);
+              
+              // 0 = pois päältä, 100 = käynnissä
+              running = value === 100;
+              break;
             }
           }
         }
       }
       
-      // Alternative: Look in generic HVAC data
-      if (statusData.HVAC && statusData.HVAC.compressor) {
-        return statusData.HVAC.compressor.running === true;
+      // Fallback: kokeillaan vanhaa tapaa
+      if (!running && compressorId && status?.controllers && status.controllers[compressorId]) {
+        running = status.controllers[compressorId].compressor_running || false;
       }
       
-      // Fallback: if no AC data found, assume not running
-      return false;
+      //console.log('Compressor setting running to:', running, 'for compressorId:', compressorId);
+      setIsRunning(running);
     };
 
-    // Get initial status
-    const initialStatus = getUpdateStatus();
-    if (initialStatus) {
-      setIsRunning(extractCompressorStatus(initialStatus));
-    }
+    // Initial check
+    updateRunning();
 
-    // Subscribe to status updates
-    const unsubscribe = onUpdateStatusChange((statusData) => {
-      setIsRunning(extractCompressorStatus(statusData));
-    });
-
+    // Listen to changes
+    const unsubscribe = onUpdateStatusChange(updateRunning);
     return unsubscribe;
   }, [compressorId]);
 
+  const containerStyle = {
+    width: `${size}px`,
+    height: `${size}px`,
+    position: 'relative' as const,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    ...style
+  };
+
+  // Skaalauskerroin peruskokoon (50px) verrattuna - mutta minimipaksuus säilyy
+  const scaleRatio = Math.max(0.4, size / 100); // Vähintään 0.4 eli 40% paksuus säilyy
+  
+  const firstSpiralStyle = {
+    stroke: isRunning ? '#22c55e' : '#000000',
+    strokeWidth: 2.8 * scaleRatio,
+    fill: 'none',
+    transition: 'all 0.3s ease',
+    filter: isRunning ? 'drop-shadow(0 0 2px rgba(34, 197, 94, 0.4))' : 'none'
+  };
+
+  const secondSpiralStyle = {
+    stroke: isRunning ? '#22c55e' : '#9ca3af',
+    strokeWidth: 2.8 * scaleRatio,
+    fill: 'none',
+    transition: 'all 0.3s ease',
+    filter: isRunning ? 'drop-shadow(0 0 2px rgba(34, 197, 94, 0.4))' : 'none'
+  };
+
+  const circleStyle = {
+    stroke: '#000000',
+    strokeWidth: 0.6 * scaleRatio,
+    fill: 'none',
+    transition: 'all 0.3s ease'
+  };
+
   return (
-    <div
-      className={`compressor-root${isRunning ? ' running' : ''} ${className}`.trim()}
-      style={{ width: size, ...style }}
-      title={title}
+    <div 
+      className={`compressor ${className}`}
+      style={containerStyle}
+      title={`${title} - ${isRunning ? 'Käynnissä' : 'Pysähdyksissä'}`}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'scale(1.05)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'scale(1)';
+      }}
     >
-      <div className={`compressor-status ${isRunning ? 'running' : 'off'}`}>
-        {isRunning ? 'KÄYNNISSÄ' : 'PYSÄHDYKSISSÄ'}
-      </div>
+      <svg 
+        width={size} 
+        height={size} 
+        viewBox="0 0 70 70"
+        style={{ 
+          animation: isRunning ? 'spin 3s linear infinite' : 'none' 
+        }}
+      >
+        {/* Outer circle */}
+        <ellipse
+          style={circleStyle}
+          cx="35.207008"
+          cy="35.10191"
+          rx="34.555912"
+          ry="34.661007"
+        />
+        
+        {/* First spiral - moved to center and adjusted */}
+        <path
+          style={firstSpiralStyle}
+          d="m 37.203821,32.789808 c 1.201406,0.853631 -0.557945,2.040622 -1.41879,1.996815 -2.332835,-0.118713 -3.181633,-2.937409 -2.57484,-4.834395 1.08541,-3.393263 5.213321,-4.467834 8.25,-3.152865 4.456449,1.929769 5.785564,7.517726 3.730891,11.665605 -2.738556,5.528472 -9.831932,7.11633 -15.081211,4.308916 -6.605682,-3.532844 -8.45376,-12.150734 -4.886941,-18.496816 4.319897,-7.685956 14.472109,-9.795035 21.912422,-5.464966 8.76815,5.102836 11.138719,16.795085 6.04299,25.328027 C 47.294402,53.991747 34.058491,56.62405 24.433991,50.761045 13.498021,44.099134 10.603558,29.317116 17.23495,18.601808 24.674369,6.580851 41.004225,3.424138 52.809792,10.824742 65.916209,19.040814 69.335311,36.919776 61.164883,49.815189"
+        />
+        
+        {/* Second spiral - positioned differently and rotated */}
+        <path
+          style={secondSpiralStyle}
+          d="m 33.678341,36.936302 c 1.338408,0.885247 -0.532972,2.240897 -1.471339,2.224522 -2.542915,-0.04438 -3.569054,-3.080832 -2.977704,-5.167199 1.057785,-3.732022 5.510728,-5.051444 8.863059,-3.730888 4.91968,1.937969 6.569177,7.970484 4.484071,12.55892 -2.77912,6.115663 -10.440432,8.101455 -16.25478,5.237254 -7.316764,-3.604306 -9.641152,-12.915139 -5.990437,-19.95064 4.421505,-8.520936 15.392505,-11.185126 23.6465,-6.743621 9.727048,5.23416 12.73178,17.871528 7.496803,27.342361 C 46.430527,59.641463 32.12286,62.987235 21.436294,56.956997 9.293538,50.105058 5.606373,34.124439 12.433124,22.222916 20.091707,8.871207 37.747155,4.84239 50.863065,12.466564 65.424212,20.930842 69.79488,40.262494 61.372601,54.592365"
+          transform="rotate(-180, 35, 35)"
+        />
+      </svg>
       
-      <div className="compressor-unit">
-        <svg viewBox="0 0 100 100" aria-hidden="true">
-          {/* Main compressor body */}
-          <rect className="compressor-body" x="25" y="35" width="50" height="35" rx="5" />
-          
-          {/* Motor housing */}
-          <circle className="compressor-motor" cx="50" cy="75" r="10" />
-          
-          {/* Piston chamber */}
-          <rect className="compressor-piston" x="40" y="25" width="20" height="15" rx="2" />
-          
-          {/* Piston */}
-          <rect className="compressor-piston" x="47" y="28" width="6" height="9" rx="1" />
-          
-          {/* Intake pipe */}
-          <path className="compressor-pipes" d="M25,45 L15,45 Q10,45 10,40 L10,30" />
-          
-          {/* Discharge pipe */}
-          <path className="compressor-pipes" d="M75,45 L85,45 Q90,45 90,40 L90,30" />
-          
-          {/* Pressure lines (visual effect) */}
-          <g className="compressor-pressure-lines">
-            <circle cx="50" cy="52" r="8" />
-            <circle cx="50" cy="52" r="12" />
-            <circle cx="50" cy="52" r="16" />
-          </g>
-          
-          {/* Connection to motor */}
-          <line className="compressor-pipes" x1="50" y1="70" x2="50" y2="65" strokeWidth="2" />
-        </svg>
-      </div>
+      <style>
+        {`
+          @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+        `}
+      </style>
     </div>
   );
 };

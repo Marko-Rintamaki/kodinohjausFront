@@ -215,19 +215,27 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
   const [isChanging, setIsChanging] = useState(false);
   const commitTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Room ID to name mapping (matches Heating.js logic)
+  // Room ID to name mapping (matches StatusUpdate data format - uppercase)
   const roomIdToName: Record<number, string> = {
-    1: 'mh1',     // Makuuhuone 1
-    2: 'mh2',     // Makuuhuone 2
-    3: 'mh3',     // Makuuhuone 3
-    4: 'ohetkt',  // Olohuone/etupihan takkahuone
-    5: 'phkhh'    // Pesuhuone/kodinhoitohuone
+    1: 'MH1',     // Makuuhuone 1
+    2: 'MH2',     // Makuuhuone 2
+    3: 'MH3',     // Makuuhuone 3
+    4: 'OHETKT',  // Olohuone/etupihan takkahuone
+    5: 'PHKHH'    // Pesuhuone/kodinhoitohuone
   };
 
-  // Get room key for temperature lookup
+  // Get room key for temperature lookup - handle both numeric IDs and direct room names
   const getRoomKey = (id: string): string => {
     const numId = parseInt(id);
-    return roomIdToName[numId] || id.toLowerCase();
+    
+    // If it's a numeric ID, use the mapping
+    if (!isNaN(numId) && roomIdToName[numId]) {
+      return roomIdToName[numId];  // Return the exact mapped name (e.g., 'mh2')
+    }
+    
+    // If it's already a room name like 'MH2' or 'mh2', normalize to uppercase
+    // to match StatusUpdate format which has uppercase room names like "MH2"
+    return id.toUpperCase();
   };
 
   // Format temperature to 1 decimal place
@@ -305,6 +313,7 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
 
   // Subscribe to status updates
   useEffect(() => {
+    console.log(`🔍 [TemperatureCard ${roomId}] KRIITTINEN: useEffect käynnistyy, yritetään rekisteröidä callback`);
     if (temperatureCardLogging) {
       console.log(`[TemperatureCard ${roomId}] useEffect triggered, authenticated:`, authenticated); // Debug log
     }
@@ -316,13 +325,20 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
 
       // Extract current temperature from status data
       if (Array.isArray(statusData.temperatures)) {
+        if (temperatureCardLogging) {
+          console.log(`[TemperatureCard ${roomId}] Looking for roomKey "${roomKey}" in temperatures:`, 
+            statusData.temperatures.map((t: { room?: string; value?: string | number }) => ({ room: t.room, value: t.value })));
+        }
         const tempEntry = statusData.temperatures.find((t: any) =>  // eslint-disable-line @typescript-eslint/no-explicit-any
-          t.room && t.room.toLowerCase() === roomKey
+          t.room && t.room.toUpperCase() === roomKey.toUpperCase()
         );
         if (tempEntry) {
           current = typeof tempEntry.value === 'number' 
             ? tempEntry.value 
             : parseFloat(tempEntry.value) || null;
+          if (temperatureCardLogging) {
+            console.log(`[TemperatureCard ${roomId}] Found temperature for "${roomKey}": ${current}°C`);
+          }
         }
       } else if (statusData.temperatures && typeof statusData.temperatures === 'object') {
         // Handle object format temperatures
@@ -405,8 +421,10 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
 
     // Get initial status (only for current temp and heating status)
     const initialStatus = getUpdateStatus();
+    console.log(`🔍 [TemperatureCard ${roomId}] KRIITTINEN: Initial status:`, initialStatus);
     if (initialStatus) {
       const data = extractTemperatureData(initialStatus);
+      console.log(`🔍 [TemperatureCard ${roomId}] KRIITTINEN: Extracted initial data:`, data);
       setTemperatureData(prev => ({ 
         ...prev, 
         current: data.current,
@@ -417,8 +435,10 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
 
     // Subscribe to updates
     const unsubscribe = onUpdateStatusChange((statusData) => {
+      console.log(`🔍 [TemperatureCard ${roomId}] KRIITTINEN: onUpdateStatusChange callback kutsuttu:`, statusData);
       // Only update current temperature and heating status, never setpoint
       const data = extractTemperatureData(statusData);
+      console.log(`🔍 [TemperatureCard ${roomId}] KRIITTINEN: Extracted update data:`, data);
       setTemperatureData(prev => ({ 
         ...prev, 
         current: data.current,
@@ -460,6 +480,7 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
   return (
     <div 
       className={`temperature-card${isModal ? ' modal' : ''}`}
+      data-testid="temperature-card"
       onClick={(e) => {
         if (isModal) {
           e.stopPropagation(); // Prevent clicks from closing modal when clicking inside card

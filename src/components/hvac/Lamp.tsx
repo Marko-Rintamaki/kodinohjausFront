@@ -88,20 +88,18 @@ export const Lamp: React.FC<LampProps> = ({
 
   const toggle = useCallback(() => {
     const next = !effectiveOn;
-  // Debug: log toggle attempt
-   
-  if (lampLogging) {
-    console.log('[Lamp] toggle click: current=', effectiveOn, 'next=', next, 'controlled=', isControlled);
-  }
+    // Debug: log toggle attempt
+    if (lampLogging) {
+      console.log('[Lamp] toggle click: current=', effectiveOn, 'next=', next, 'controlled=', isControlled);
+    }
     if (!isControlled) setInternalOn(next);
     onChange?.(next);
   }, [effectiveOn, isControlled, onChange]);
 
   const handleClick = (e: React.MouseEvent) => {
-   
-  if (lampLogging) {
-    console.log('[Lamp] handleClick event target=', e.target);
-  }
+    if (lampLogging) {
+      console.log('[Lamp] handleClick event target=', e.target);
+    }
     toggle();
     const el = (e.currentTarget as HTMLDivElement);
     el.classList.add('toggle-anim');
@@ -135,10 +133,7 @@ export const Lamp: React.FC<LampProps> = ({
   const handleKey = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') { 
       e.preventDefault(); 
-      toggle();
-      const el = e.currentTarget as HTMLDivElement;
-      el.classList.add('toggle-anim');
-      setTimeout(() => el.classList.remove('toggle-anim'), 420);
+      handleClick(e as unknown as React.MouseEvent); 
     }
   };
 

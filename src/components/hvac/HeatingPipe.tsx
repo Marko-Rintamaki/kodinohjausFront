@@ -1,11 +1,15 @@
 import React, { useMemo } from 'react';
 
-export interface HeatingPipePoint { x:number; y:number; }
+export interface HeatingPipePoint { 
+  x: number; 
+  y: number; 
+}
+
 export interface HeatingPipeProps {
   points: HeatingPipePoint[]; // relative 0..1 coordinates
   on?: boolean;
   defaultOn?: boolean;
-  onChange?: (on:boolean)=>void;
+  onChange?: (on: boolean) => void;
   baseWidth: number;
   baseHeight: number;
   admin?: boolean;
@@ -13,7 +17,7 @@ export interface HeatingPipeProps {
   style?: React.CSSProperties;
   title?: string;
   id?: string;
-  onToggle?: ()=>void;
+  onToggle?: () => void;
   onHandlePointerDown?: (e: React.PointerEvent, pointIndex: number) => void;
   onRootPointerDown?: (e: React.PointerEvent) => void;
   onRootContextMenu?: (e: React.MouseEvent) => void;
@@ -27,29 +31,29 @@ const ensureStyles = (() => {
     const style = document.createElement('style');
     style.dataset.heatingPipeStyles = 'true';
     style.textContent = `
-      .heating-pipe-root { }
-      .heating-pipe-root.selected { filter:drop-shadow(0 0 4px #3b82f6); }
+      .heating-pipe-root { cursor: pointer; }
+      .heating-pipe-root.selected { filter: drop-shadow(0 0 4px #3b82f6); }
       .heating-pipe-path { 
-        stroke:#3b82f6; 
-        stroke-width:2; 
-        fill:none; 
-        stroke-linecap:round; 
-        stroke-linejoin:round; 
-        stroke-dasharray:12,8;
+        stroke: #3b82f6; 
+        stroke-width: 2; 
+        fill: none; 
+        stroke-linecap: round; 
+        stroke-linejoin: round; 
+        stroke-dasharray: 12,8;
         transition: stroke .35s;
-        pointer-events:none;
+        pointer-events: stroke;
       }
       .heating-pipe-root.on .heating-pipe-path { 
-        stroke:#dc2626; 
-        stroke-dasharray:none;
+        stroke: #dc2626; 
+        stroke-dasharray: none;
       }
       .heating-pipe-handle { 
-        fill:#1e293b; 
-        stroke:#3b82f6; 
-        stroke-width:1.5; 
-        cursor:move; 
+        fill: #1e293b; 
+        stroke: #3b82f6; 
+        stroke-width: 1.5; 
+        cursor: move; 
       }
-      .heating-pipe-root:not(.admin) .heating-pipe-handle { display:none; }
+      .heating-pipe-root:not(.admin) .heating-pipe-handle { display: none; }
     `;
     document.head.appendChild(style);
     injected = true;
@@ -64,8 +68,9 @@ const HeatingPipe: React.FC<HeatingPipeProps> = ({
   admin = false,
   className = '',
   style = {},
-  title = '',
+  title = 'Heating pipe',
   id,
+  onToggle,
   onHandlePointerDown,
   onRootPointerDown,
   onRootContextMenu,
@@ -81,7 +86,7 @@ const HeatingPipe: React.FC<HeatingPipeProps> = ({
     [points, baseWidth, baseHeight]
   );
 
-  // Create path - straight lines between points for now
+  // Create path - straight lines between points
   const pathD = useMemo(() => {
     if (absPts.length < 2) return '';
     
@@ -95,29 +100,54 @@ const HeatingPipe: React.FC<HeatingPipeProps> = ({
     return d;
   }, [absPts]);
 
+  const handleClick = () => {
+    onToggle?.();
+  };
+
   return (
     <g
-      className={`heating-pipe-root${active?' on':''}${admin?' admin':''}${selected?' selected':''} ${className}`.trim()}
-      onPointerDown={(e)=> { if(admin && e.button===0){ e.stopPropagation(); onRootPointerDown?.(e); } }}
-      onContextMenu={(e)=> { if(admin){ e.preventDefault(); e.stopPropagation(); onRootContextMenu?.(e); } }}
+      className={`heating-pipe-root${active ? ' on' : ''}${admin ? ' admin' : ''}${selected ? ' selected' : ''} ${className}`.trim()}
+      onClick={(e) => {
+        e.stopPropagation();
+        handleClick();
+      }}
+      onPointerDown={(e) => { 
+        if (admin && e.button === 0) { 
+          e.stopPropagation(); 
+          onRootPointerDown?.(e); 
+        }
+      }}
+      onContextMenu={(e) => { 
+        if (admin) { 
+          e.preventDefault(); 
+          e.stopPropagation(); 
+          onRootContextMenu?.(e); 
+        } 
+      }}
       data-id={id}
-      style={style}
+      style={{ ...style, touchAction: 'manipulation' }}
     >
       {/* Visible heating pipe path */}
-      <path className="heating-pipe-path" d={pathD} />
+      <path 
+        className="heating-pipe-path" 
+        d={pathD} 
+      />
       
       {/* Admin handles for each point */}
-      {admin && absPts.map((p,i)=>(
+      {admin && absPts.map((p, i) => (
         <rect
           key={i}
           className="heating-pipe-handle"
-          x={p.x-7}
-          y={p.y-7}
+          x={p.x - 7}
+          y={p.y - 7}
           width={14}
           height={14}
           data-index={i}
-          onPointerDown={(e)=>{ e.stopPropagation(); onHandlePointerDown?.(e, i); }}
-          onClick={(e)=> e.stopPropagation()}
+          onPointerDown={(e) => { 
+            e.stopPropagation(); 
+            onHandlePointerDown?.(e, i); 
+          }}
+          onClick={(e) => e.stopPropagation()}
         />
       ))}
       

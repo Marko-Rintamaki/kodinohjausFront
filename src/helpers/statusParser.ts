@@ -7,6 +7,8 @@ import { StatusData, StatusUpdate, TemperatureIconModel } from '../types';
 
 // Enable/disable detailed logging for status parsing
 const PARSE_STATUS_DATA_LOGGING = false;
+const TEMPERATURE_UPDATE_LOGGING = false;
+const RELAY_UPDATE_LOGGING = false;
 
 /**
  * Parses status update data into structured StatusData format
@@ -195,7 +197,9 @@ export const updateTemperatureIconsFromStatus = (
         : parseFloat(tempEntry.value) || null;
       
       if (logging) {
-        console.log(`[Temperature] Icon ${icon.id} (room ${roomKey}) temp: ${newTemp}°C`);
+        if (TEMPERATURE_UPDATE_LOGGING) {
+          console.log(`[Temperature] Icon ${icon.id} (room ${roomKey}) temp: ${newTemp}°C`);
+        }
       }
       
       return { ...icon, currentTemp: newTemp };
@@ -219,7 +223,9 @@ export const updateComponentStatesFromRelays = (
     const relay = relayStatus.find(r => r.relay === lamp.relayId);
     if (relay) {
       if (logging) {
-        console.log(`[Relay] Lamppu ${lamp.id} (rele ${lamp.relayId}) tila: ${relay.stat === 1 ? 'ON' : 'OFF'}`);
+        if (RELAY_UPDATE_LOGGING) {
+          console.log(`[Relay] Lamppu ${lamp.id} (rele ${lamp.relayId}) tila: ${relay.stat === 1 ? 'ON' : 'OFF'}`);
+        }
       }
       return { ...lamp, on: relay.stat === 1 };
     }
@@ -232,7 +238,9 @@ export const updateComponentStatesFromRelays = (
     const relay = relayStatus.find(r => r.relay === strip.relayId);
     if (relay) {
       if (logging) {
-        console.log(`[Relay] Strip ${strip.id} (rele ${strip.relayId}) tila: ${relay.stat === 1 ? 'ON' : 'OFF'}`);
+        if (RELAY_UPDATE_LOGGING) {
+          console.log(`[Relay] Strip ${strip.id} (rele ${strip.relayId}) tila: ${relay.stat === 1 ? 'ON' : 'OFF'}`);
+        }
       }
       return { ...strip, on: relay.stat === 1 };
     }
@@ -245,7 +253,9 @@ export const updateComponentStatesFromRelays = (
     const relay = relayStatus.find(r => r.relay === pipe.relayId);
     if (relay) {
       if (logging) {
-        console.log(`[Relay] Lämmitysputki ${pipe.id} (rele ${pipe.relayId}) tila: ${relay.stat === 1 ? 'ON' : 'OFF'}`);
+        if (RELAY_UPDATE_LOGGING) {
+          console.log(`[Relay] Lämmitysputki ${pipe.id} (rele ${pipe.relayId}) tila: ${relay.stat === 1 ? 'ON' : 'OFF'}`);
+        }
       }
       return { ...pipe, on: relay.stat === 1 };
     }
@@ -259,7 +269,9 @@ export const updateComponentStatesFromRelays = (
       const relay = relayStatus.find(r => r.relay === wallLight.relayId);
       if (relay) {
         if (logging) {
-          console.log(`[Relay] Seinävalo ${wallLight.id} (rele ${wallLight.relayId}) tila: ${relay.stat === 1 ? 'ON' : 'OFF'}`);
+          if (RELAY_UPDATE_LOGGING) {
+            console.log(`[Relay] Seinävalo ${wallLight.id} (rele ${wallLight.relayId}) tila: ${relay.stat === 1 ? 'ON' : 'OFF'}`);
+          }
         }
         return { ...wallLight, on: relay.stat === 1 };
       }

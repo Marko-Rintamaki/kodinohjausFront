@@ -1,3 +1,6 @@
+// Debug logging control for Home component
+const homeLogging = false;
+
 /**
  * 🏠 Home - Suppea pohjakuvanäkymä zoomilla ja panilla
  * 
@@ -29,11 +32,11 @@ import { Box } from '@mui/material';
 import { useZoomAndPan } from '../hooks/useZoomAndPan';
 import { useLayoutPersistence } from '../hooks/useLayoutPersistence';
 import { useLocalStorageSync } from '../helpers/localStorageSync';
-import LampComponent from '../components/Lamp';
-import LEDStrip from '../components/LEDStrip';
-import HeatingPipe from '../components/HeatingPipe';
-import TemperatureIcon from '../components/TemperatureIcon';
-import TemperatureCard from '../components/TemperatureCard';
+import LampComponent from '../components/hvac/Lamp';
+import LEDStrip from '../components/hvac/LEDStrip';
+import HeatingPipe from '../components/hvac/HeatingPipe';
+import TemperatureIcon from '../components/hvac/TemperatureIcon';
+import TemperatureCard from '../components/hvac/TemperatureCard';
 import AdminToolbar from '../components/AdminToolbar';
 import { Lamp, LEDStripModel, HeatingPipeModel, TemperatureIconModel, ToolType, DrawingState, StatusUpdate } from '../types';
 import { parseStatusData, updateComponentStatesFromRelays, updateTemperatureIconsFromStatus } from '../helpers/statusParser';
@@ -47,7 +50,7 @@ import WallLight from '../components/hvac/WallLight';
 
 // Import HVAC components - migrated from vanhat/src/pages/Home.tsx
 import Compressor from '../components/hvac/Compressor';
-import Fan from '../components/hvac/Fan';
+import FanIcon from '../components/hvac/FanIcon';
 import HeatPumpCompressor from '../components/hvac/HeatPumpCompressor';
 import HeatPumpIndoorUnit from '../components/hvac/HeatPumpIndoorUnit';
 
@@ -226,7 +229,11 @@ export const Home: React.FC = () => {
   const [compressors, setCompressors] = useState<CompressorModel[]>([]);
 
   // Fans state - required for layout persistence
-  const [fans, setFans] = useState<FanModel[]>([]);
+  const [fans, setFans] = useState<FanModel[]>([
+    { id: 'test-fan-1', x: 0.5, y: 0.3, label: 'Test Puhallin', fanId: 'nilan' }
+  ]);
+  
+  if (homeLogging) console.log('🔍 [Home] Current fans array:', fans, 'length:', fans.length);
 
   // Heat pump compressors state - required for layout persistence
   const [heatpumpCompressors, setHeatpumpCompressors] = useState<HeatPumpCompressorModel[]>([]);
@@ -412,16 +419,24 @@ export const Home: React.FC = () => {
 
   // Status parsing and relay management - migrated from vanhat/src/pages/Home.tsx
   useEffect(() => {
-    console.log('🔄 [Home] KRIITTINEN: Rekisteröidään onUpdateStatusChange callback');
+    if (homeLogging) {
+      console.log('🔄 [Home] KRIITTINEN: Rekisteröidään onUpdateStatusChange callback');
+    }
     const unsubscribe = onUpdateStatusChange((status: StatusUpdate) => {
-      console.log('🔄 [Home] KRIITTINEN: StatusUpdate callback kutsuttu:', status);
+      if (homeLogging) {
+        console.log('🔄 [Home] KRIITTINEN: StatusUpdate callback kutsuttu:', status);
+      }
       
       // Parse status data for system monitoring
       const parsedStatusData = parseStatusData(status);
-      console.log('[StatusParsing] Parsed status data:', parsedStatusData);
+      if (homeLogging) {
+        console.log('[StatusParsing] Parsed status data:', parsedStatusData);
+      }
             
       if (status?.relays) {
-        console.log('[StatusParsing] Received relay status:', status.relays);        
+        if (homeLogging) {
+          console.log('[StatusParsing] Received relay status:', status.relays);
+        }        
        
         // Update component states based on relay status using helper function
         updateComponentStatesFromRelays(
@@ -433,7 +448,9 @@ export const Home: React.FC = () => {
           false // Disable logging by default, enable for debugging
         );
       } else {
-        console.log('[StatusParsing] StatusUpdate did not contain relays data');
+        if (homeLogging) {
+          console.log('[StatusParsing] StatusUpdate did not contain relays data');
+        }
       }
 
       // Update temperature icons with current temperatures (always try to update)
@@ -447,7 +464,9 @@ export const Home: React.FC = () => {
     // Get initial state immediately
     const currentRelays = getAllRelayStatus();
     if (currentRelays.length > 0) {
-      console.log('[StatusParsing] Loading initial relay state:', currentRelays);
+      if (homeLogging) {
+        console.log('[StatusParsing] Loading initial relay state:', currentRelays);
+      }
       
       // Update component states with initial relay data
       updateComponentStatesFromRelays(
@@ -461,7 +480,9 @@ export const Home: React.FC = () => {
     }
     
     return () => {
-      console.log('[StatusParsing] Removing global statusUpdate listener');
+      if (homeLogging) {
+        console.log('[StatusParsing] Removing global statusUpdate listener');
+      }
       unsubscribe();
     };
   }, []);
@@ -915,6 +936,7 @@ export const Home: React.FC = () => {
 
         {/* Fan Overlay - migrated from vanhat/src/pages/Home.tsx */}
         {imgSize && fans.map((fan) => (
+          homeLogging && console.log('🔍 [Home] Rendering fan:', fan),
           <Box
             key={fan.id}
             sx={{
@@ -926,10 +948,12 @@ export const Home: React.FC = () => {
               pointerEvents: 'auto'
             }}
           >
-            <Fan
+            <FanIcon
               size={35}
               title={fan.label || 'Puhallin'}
               fanId={fan.fanId}
+              socketService={socketService}
+              isSocketConnected={isSocketConnected}
             />
             {admin && (
               <Box
