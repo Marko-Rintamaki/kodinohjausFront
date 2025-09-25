@@ -651,6 +651,9 @@ export const Home: React.FC = () => {
 
   // ⚠️ SUOJATTU KOODI - Mouse drag handlers - ÄLÄR MUUTA! ⚠️
   const handleMouseDown = (e: React.MouseEvent) => {
+    // Disable background interaction when temperature modal is open
+    if (temperatureModalOpen) return;
+    
     const pointerEvent = {
       ...e,
       pointerType: 'mouse',
@@ -662,6 +665,9 @@ export const Home: React.FC = () => {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    // Disable background interaction when temperature modal is open
+    if (temperatureModalOpen) return;
+    
     const pointerEvent = {
       ...e,
       pointerType: 'mouse',
@@ -669,6 +675,15 @@ export const Home: React.FC = () => {
       clientY: e.clientY
     } as React.PointerEvent;
     handlePointerMove(pointerEvent);
+  };
+
+  // Wrapper for handlePointerUp to disable background interaction when modal is open
+  const handleMouseUp = () => {
+    // Disable background interaction when temperature modal is open
+    if (temperatureModalOpen) return;
+    
+    // handlePointerUp doesn't take any parameters
+    handlePointerUp();
   };
 
   // Handle container clicks for admin component creation - migrated from vanhat/src/pages/Home.tsx
@@ -757,7 +772,7 @@ export const Home: React.FC = () => {
 
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
-      onMouseUp={handlePointerUp}
+      onMouseUp={handleMouseUp}
       onClick={handleContainerClick}
     >
 
@@ -807,20 +822,21 @@ export const Home: React.FC = () => {
           >
             {lamp.kind === 'mirror' ? (
               <MirrorLight
+                length={55}
                 on={lamp.on}
                 onChange={() => handleLampClick(lamp)}
                 title={lamp.label || `Peilivalo ${lamp.id}`}
               />
             ) : lamp.kind === 'spot' ? (
               <SpotLight
-                size={60}
+                size={25}
                 on={lamp.on}
                 onChange={() => handleLampClick(lamp)}
                 title={lamp.label || `Spottivalo ${lamp.id}`}
               />
             ) : (
               <LampComponent
-                size={60}
+                size={35}
                 on={lamp.on}
                 onChange={() => handleLampClick(lamp)}
                 title={lamp.label || `Lamppu ${lamp.id}`}

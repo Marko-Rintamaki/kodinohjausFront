@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getUpdateStatus, onUpdateStatusChange, isSocketConnected } from '../../helpers/socketHelper';
+import { getUpdateStatus, onUpdateStatusChange } from '../../helpers/socketHelper';
 import { useSocketService } from '../../hooks/useSocket';
 import './TemperatureCard.css';
 
@@ -67,13 +67,13 @@ const clearSetpointCache = () => {
 (window as typeof window & { clearTemperatureCache?: () => void }).clearTemperatureCache = clearSetpointCache;
 
 // Wait for socket connection helper
-const waitForSocketConnection = (): Promise<void> => {
+const waitForSocketConnection = (socketService: any): Promise<void> => { // eslint-disable-line @typescript-eslint/no-explicit-any
   return new Promise((resolve, reject) => {
     const startTime = Date.now();
     const timeout = 5000; // 5 seconds timeout
     
     const checkConnection = () => {
-      if (isSocketConnected()) {
+      if (socketService.isConnected) {
         if (temperatureCardLogging) {
           console.log('[SocketWait] Socket connected, proceeding with request');
         }
@@ -96,9 +96,16 @@ const waitForSocketConnection = (): Promise<void> => {
 
 // Shared function to fetch setpoints once and cache the result
 const fetchAllSetpoints = async (socketService: any): Promise<Record<string, number>> => { // eslint-disable-line @typescript-eslint/no-explicit-any
+  if (temperatureCardLogging) {
+    console.log('[SharedSetpoint] 🚀 fetchAllSetpoints called');
+  }
+  
   // Check localStorage cache first
   const cachedData = getCachedSetpoints();
   if (cachedData) {
+    if (temperatureCardLogging) {
+      console.log('[SharedSetpoint] 📦 Using cached data:', cachedData);
+    }
     return cachedData;
   }
 
@@ -123,7 +130,7 @@ const fetchAllSetpoints = async (socketService: any): Promise<Record<string, num
     const performRequest = async () => {
       try {
         // Check socket connection - if not connected, use defaults immediately
-        if (!isSocketConnected()) {
+        if (!socketService.isConnected) {
           if (temperatureCardLogging) {
             console.log('[SharedSetpoint] Socket not connected, using default setpoints');
           }
@@ -134,12 +141,20 @@ const fetchAllSetpoints = async (socketService: any): Promise<Record<string, num
         }
 
         // Wait for socket connection first (with timeout)
-        await waitForSocketConnection();
+        await waitForSocketConnection(socketService);
+        
+        if (temperatureCardLogging) {
+          console.log('[SharedSetpoint] ✅ Socket connected, preparing database query...');
+        }
         
         const requestData = {
           sql: 'SELECT * FROM ifserver.roomsetpointtemp ORDER BY idroomsetpointtemp DESC LIMIT 1;',
           params: []
         };
+        
+        if (temperatureCardLogging) {
+          console.log('[SharedSetpoint] 📤 Sending SQL query:', requestData);
+        }
         
         // Use socketService.sendRequest() EXACTLY like lamps do!
         const response = await socketService.sendRequest({
@@ -149,7 +164,10 @@ const fetchAllSetpoints = async (socketService: any): Promise<Record<string, num
         });
         
         if (temperatureCardLogging) {
-          console.log('[SharedSetpoint] Response received:', response);
+          console.log('[SharedSetpoint] 📥 Response received:', response);
+          console.log('[SharedSetpoint] 📊 Response success:', response?.success);
+          console.log('[SharedSetpoint] 📊 Response data type:', Array.isArray(response?.data) ? 'array' : typeof response?.data);
+          console.log('[SharedSetpoint] 📊 Response data length:', response?.data ? response.data.length : 'no data');
         }
         
         let row = null;
@@ -157,23 +175,46 @@ const fetchAllSetpoints = async (socketService: any): Promise<Record<string, num
           if (response.data && Array.isArray(response.data)) {
             row = response.data[0];
             if (temperatureCardLogging) {
-              console.log('[SharedSetpoint] Found data in response.data[0]:', row);
+              console.log('[SharedSetpoint] 🔍 Found data in response.data[0]:', row);
+              if (row) {
+                console.log('[SharedSetpoint] 🔍 Row keys:', Object.keys(row));
+                console.log('[SharedSetpoint] 🔍 Row values:', Object.values(row));
+              }
             }
+          }
+        } else {
+          if (temperatureCardLogging) {
+            console.log('[SharedSetpoint] ❌ Query failed or returned no success');
+            console.log('[SharedSetpoint] ❌ Response object:', response);
           }
         }
 
         if (row) {
+          if (temperatureCardLogging) {
+            console.log('[SharedSetpoint] 🔄 Processing row data...');
+          }
           // Extract all room setpoints from the row
           const setpoints: Record<string, number> = {};
           Object.keys(row).forEach(column => {
+            if (temperatureCardLogging) {
+              console.log(`[SharedSetpoint] 📝 Column: "${column}" = ${row[column]} (type: ${typeof row[column]})`);
+            }
             if (column !== 'idroomsetpointtemp' && column !== 'room_id') {
               const key = column.toLowerCase();
-              setpoints[key] = Number(row[column]);
+              const value = Number(row[column]);
+              setpoints[key] = value;
+              if (temperatureCardLogging) {
+                console.log(`[SharedSetpoint] ✅ Added setpoint: ${key} = ${value}`);
+              }
+            } else {
+              if (temperatureCardLogging) {
+                console.log(`[SharedSetpoint] ⏭️ Skipped column: ${column}`);
+              }
             }
           });
           
           if (temperatureCardLogging) {
-            console.log('[SharedSetpoint] Parsed setpoints:', setpoints);
+            console.log('[SharedSetpoint] 🎯 Final parsed setpoints:', setpoints);
           }
           setCachedSetpoints(setpoints);  // Cache to localStorage
           resolve(setpoints);
@@ -257,13 +298,25 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
   const getRoomKey = (id: string): string => {
     const numId = parseInt(id);
     
-    // If it's a numeric ID, use the mapping
+    // If it's a numeric ID, use the mapping and convert to lowercase for cache consistency
     if (!isNaN(numId) && roomIdToName[numId]) {
-      return roomIdToName[numId];  // Return the exact mapped name (e.g., 'mh2')
+      return roomIdToName[numId].toLowerCase();  // Return lowercase for cache
     }
     
-    // If it's already a room name like 'MH2' or 'mh2', normalize to uppercase
-    // to match StatusUpdate format which has uppercase room names like "MH2"
+    // If it's already a room name like 'MH2' or 'mh2', normalize to lowercase for cache
+    return id.toLowerCase();
+  };
+
+  // Get room key for StatusUpdate lookup (uppercase for server data matching)
+  const getStatusUpdateRoomKey = (id: string): string => {
+    const numId = parseInt(id);
+    
+    // If it's a numeric ID, use the mapping  
+    if (!isNaN(numId) && roomIdToName[numId]) {
+      return roomIdToName[numId];  // Return uppercase for StatusUpdate matching
+    }
+    
+    // If it's already a room name, normalize to uppercase to match StatusUpdate format
     return id.toUpperCase();
   };
 
@@ -283,12 +336,19 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
     // Update localStorage cache immediately for this room
     const roomKey = getRoomKey(roomId);
     const cachedData = getCachedSetpoints();
+    let updatedCache: Record<string, number>;
+    
     if (cachedData) {
-      const updatedCache = { ...cachedData, [roomKey]: newValue };
+      updatedCache = { ...cachedData, [roomKey]: newValue };
       setCachedSetpoints(updatedCache);
       if (temperatureCardLogging) {
         console.log(`[TemperatureCard ${roomId}] Updated localStorage cache for ${roomKey}:`, newValue);
       }
+    } else {
+      // If no cache exists, create default values with the new value
+      updatedCache = { mh1: 20, mh2: 20, mh3: 20, ohetkt: 20, phkhh: 20 };
+      updatedCache[roomKey] = newValue;
+      setCachedSetpoints(updatedCache);
     }
 
     // Clear previous timeout
@@ -296,27 +356,23 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
       clearTimeout(commitTimeoutRef.current);
     }
 
-    // Debounce database update - insert ALL room values from current cache
+    // Debounce database update - use the updatedCache directly instead of re-reading
     commitTimeoutRef.current = setTimeout(async () => {
       try {
-        // Get all current setpoint values from localStorage
-        const allCurrentSetpoints = getCachedSetpoints();
-        if (!allCurrentSetpoints) {
-          console.error('No setpoint cache available for database update');
-          setIsChanging(false);
-          return;
+        if (temperatureCardLogging) {
+          console.log('[Database Update] Using setpoints directly from updatedCache:', updatedCache);
         }
 
         // Wait for socket connection first
-        await waitForSocketConnection();
+        await waitForSocketConnection(socketService);
 
-        // Create INSERT query with ALL room values
+        // Create INSERT query with ALL room values from updatedCache
         const values = [
-          allCurrentSetpoints.mh1 || 20,
-          allCurrentSetpoints.mh2 || 20, 
-          allCurrentSetpoints.mh3 || 20,
-          allCurrentSetpoints.ohetkt || 20,
-          allCurrentSetpoints.phkhh || 20
+          updatedCache.mh1 || 20,
+          updatedCache.mh2 || 20, 
+          updatedCache.mh3 || 20,
+          updatedCache.ohetkt || 20,
+          updatedCache.phkhh || 20
         ];
 
         const requestData = {
@@ -360,7 +416,7 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
     }
     // Extract temperature data from status updates
     const extractTemperatureData = (statusData: any): StatusUpdateData => { // eslint-disable-line @typescript-eslint/no-explicit-any
-      const roomKey = getRoomKey(roomId);
+      const roomKey = getStatusUpdateRoomKey(roomId); // Use uppercase for StatusUpdate matching
       let current: number | null = null;
       let heatingOn = false;
 
@@ -447,7 +503,7 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
         }
 
         // If no cache and socket is not connected, use defaults immediately
-        if (!isSocketConnected()) {
+        if (!socketService.isConnected) {
           if (temperatureCardLogging) {
             console.log(`[TemperatureCard ${roomId}] Socket not connected, using default setpoint`);
           }
@@ -463,17 +519,21 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
         const allSetpoints = await fetchAllSetpoints(socketService);
         const roomKey = getRoomKey(roomId);
         
-        if (allSetpoints[roomKey] !== undefined) {
+        // Try both uppercase and lowercase keys for cache lookup since database stores lowercase
+        const setpointValue = allSetpoints[roomKey] !== undefined ? allSetpoints[roomKey] : allSetpoints[roomKey.toLowerCase()];
+        
+        if (setpointValue !== undefined) {
           if (temperatureCardLogging) {
-            console.log(`[TemperatureCard ${roomId}] Found setpoint for ${roomKey}:`, allSetpoints[roomKey]);
+            console.log(`[TemperatureCard ${roomId}] Found setpoint for ${roomKey} (or ${roomKey.toLowerCase()}):`, setpointValue);
           }
           setTemperatureData(prev => ({
             ...prev,
-            setpoint: allSetpoints[roomKey]
+            setpoint: setpointValue
           }));
         } else {
           if (temperatureCardLogging) {
-            console.log(`[TemperatureCard ${roomId}] No setpoint found for ${roomKey}, using default`);
+            console.log(`[TemperatureCard ${roomId}] No setpoint found for ${roomKey} or ${roomKey.toLowerCase()}, using default`);
+            console.log(`[TemperatureCard ${roomId}] Available setpoint keys:`, Object.keys(allSetpoints));
           }
           setTemperatureData(prev => ({
             ...prev,

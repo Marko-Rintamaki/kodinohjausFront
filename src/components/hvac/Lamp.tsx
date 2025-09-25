@@ -71,7 +71,7 @@ const ensureStyles = (() => {
 })();
 
 export const Lamp: React.FC<LampProps> = ({
-  size = 140,
+  size = 35,
   on,
   defaultOn = false,
   onChange,

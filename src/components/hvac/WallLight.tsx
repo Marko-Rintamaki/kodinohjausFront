@@ -6,7 +6,7 @@ interface WallLightProps {
   onClick?: () => void;
   scaleRatio?: number;
   direction?: 'up' | 'down'; // ylöspäin vai alaspäin suuntautuva
-  label?: string;
+  label?: string; // Poistettu käytöstä mutta pidetään API-yhteensopivuuden vuoksi
   isOn?: boolean; // Lisätään prop jolla voidaan kertoa onko päällä
 }
 
@@ -16,9 +16,12 @@ const WallLight: React.FC<WallLightProps> = ({
   onClick, 
   scaleRatio = 1,
   direction = 'up',
-  label,
+  label, // Pidetään API-yhteensopivuuden vuoksi mutta ei käytetä
   isOn = false // Oletuksena pois päältä
 }) => {
+  // Mark label as used to avoid TypeScript warnings
+  void label;
+  
   // Värit
   const fillColor = isOn ? '#FFE135' : '#FFFFFF'; // Keltainen päällä, valkoinen pois
   const strokeColor = '#000000'; // Mustat ääriviivat aina
@@ -70,7 +73,7 @@ const WallLight: React.FC<WallLightProps> = ({
           strokeWidth="1"
         />
         
-        {/* Teksti-label */}
+        {/* Teksti-label - poistettu käyttäjän pyynnöstä
         {label && (
           <text
             x="8"
@@ -83,6 +86,7 @@ const WallLight: React.FC<WallLightProps> = ({
             {label}
           </text>
         )}
+        */}
       </g>
     </svg>
   );
