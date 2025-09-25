@@ -185,7 +185,7 @@ function sendBoschCommand(commandPath) {
       type: 'controller_command',
       data: {
         id: "Bosch",
-        function: "get", 
+        function: "read", 
         path: commandPath
       },
       token: authToken

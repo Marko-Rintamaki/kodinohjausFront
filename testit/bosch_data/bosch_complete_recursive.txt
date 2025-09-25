@@ -1,0 +1,3615 @@
+BOSCH CONTROLLER - REKURSIIVINEN HAKU
+====================================
+
+Käsitelty yhteensä: 247 polkua
+
+1. /application
+Status: ✅ SUCCESS
+Data: {
+  "id": "/application",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/application/tbso",
+      "uri": "http://192.168.0.102/application/tbso"
+    }
+  ]
+}
+
+---
+
+2. /dhwCircuits
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/dhwCircuits/dhw1",
+      "uri": "http://192.168.0.102/dhwCircuits/dhw1"
+    }
+  ]
+}
+
+---
+
+3. /gateway
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/gateway/uuid",
+      "uri": "http://192.168.0.102/gateway/uuid"
+    },
+    {
+      "id": "/gateway/firmware",
+      "uri": "http://192.168.0.102/gateway/firmware"
+    },
+    {
+      "id": "/gateway/userpassword",
+      "uri": "http://192.168.0.102/gateway/userpassword"
+    },
+    {
+      "id": "/gateway/versionFirmware",
+      "uri": "http://192.168.0.102/gateway/versionFirmware"
+    },
+    {
+      "id": "/gateway/v...[KATKAISTU]
+
+---
+
+4. /heatingCircuits
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatingCircuits/hc1",
+      "uri": "http://192.168.0.102/heatingCircuits/hc1"
+    }
+  ]
+}
+
+---
+
+5. /heatSources
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/info",
+      "uri": "http://192.168.0.102/heatSources/info"
+    },
+    {
+      "id": "/heatSources/actualModulation",
+      "uri": "http://192.168.0.102/heatSources/actualModulation"
+    },
+    {
+      "id": "/heatSources/burnerModulationSetpoint",
+      "uri": "http://192.168.0.102/heatSources/burnerModulationSetpoint"
+    },
+    {
+      "id": "/heatSources/flameStatus",
+      "uri": "http://192.168...[KATKAISTU]
+
+---
+
+6. /recordings
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/system",
+      "uri": "http://192.168.0.102/recordings/system"
+    },
+    {
+      "id": "/recordings/heatSources",
+      "uri": "http://192.168.0.102/recordings/heatSources"
+    },
+    {
+      "id": "/recordings/heatingCircuits",
+      "uri": "http://192.168.0.102/recordings/heatingCircuits"
+    },
+    {
+      "id": "/recordings/dhwCircuits",
+      "uri": "http://192.168.0.102/recordings/dhwCircuits"
+ ...[KATKAISTU]
+
+---
+
+7. /solarCircuits
+Status: ✅ SUCCESS
+Data: {
+  "id": "/solarCircuits",
+  "type": "refEnum",
+  "references": []
+}
+
+---
+
+8. /system
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/brand",
+      "uri": "http://192.168.0.102/system/brand"
+    },
+    {
+      "id": "/system/systemType",
+      "uri": "http://192.168.0.102/system/systemType"
+    },
+    {
+      "id": "/system/bus",
+      "uri": "http://192.168.0.102/system/bus"
+    },
+    {
+      "id": "/system/busReq",
+      "uri": "http://192.168.0.102/system/busReq"
+    },
+    {
+      "id": "/system/info",
+      "uri": "http://192.168.0.102...[KATKAISTU]
+
+---
+
+9. /application/tbso
+Status: ✅ SUCCESS
+Data: {
+  "id": "/application/tbso",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/application/tbso/electricity",
+      "uri": "http://192.168.0.102/application/tbso/electricity"
+    },
+    {
+      "id": "/application/tbso/enable",
+      "uri": "http://192.168.0.102/application/tbso/enable"
+    }
+  ]
+}
+
+---
+
+10. /dhwCircuits/dhw1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/dhwCircuits/dhw1/operationMode",
+      "uri": "http://192.168.0.102/dhwCircuits/dhw1/operationMode"
+    },
+    {
+      "id": "/dhwCircuits/dhw1/switchPrograms",
+      "uri": "http://192.168.0.102/dhwCircuits/dhw1/switchPrograms"
+    },
+    {
+      "id": "/dhwCircuits/dhw1/temperatureLevels",
+      "uri": "http://192.168.0.102/dhwCircuits/dhw1/temperatureLevels"
+    },
+    {
+      "id": "/dhwCircuits/dhw1/cu...[KATKAISTU]
+
+---
+
+11. /gateway/uuid
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/uuid",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "753358365",
+  "allowedValues": [
+    "753358365"
+  ]
+}
+
+---
+
+12. /gateway/firmware
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Unexpected character encountered while parsing value: Y. Path '', line 0, position 0."
+}
+
+---
+
+13. /gateway/userpassword
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+14. /gateway/versionFirmware
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/versionFirmware",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "04.08.02"
+}
+
+---
+
+15. /gateway/versionHardware
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/versionHardware",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "iCom_Low_NSC_v1"
+}
+
+---
+
+16. /gateway/boschSHPassword
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+17. /gateway/portalPassword
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+18. /gateway/knxPassword
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+19. /gateway/haiPassword
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+20. /gateway/DateTime
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/DateTime",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "2025-09-24T20:56:37"
+}
+
+---
+
+21. /gateway/instPassword
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+22. /gateway/instAccess
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/instAccess",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "off",
+  "allowedValues": [
+    "off",
+    "on"
+  ]
+}
+
+---
+
+23. /gateway/instWriteAccess
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/instWriteAccess",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "off",
+  "allowedValues": [
+    "off",
+    "on"
+  ]
+}
+
+---
+
+24. /gateway/version
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+25. /gateway/update
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/update",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/gateway/update/version",
+      "uri": "http://192.168.0.102/gateway/update/version"
+    },
+    {
+      "id": "/gateway/update/request",
+      "uri": "http://192.168.0.102/gateway/update/request"
+    },
+    {
+      "id": "/gateway/update/strategy",
+      "uri": "http://192.168.0.102/gateway/update/strategy"
+    },
+    {
+      "id": "/gateway/update/status",
+      "uri": "http://192.168.0.102/gateway/update/sta...[KATKAISTU]
+
+---
+
+26. /gateway/logging
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/logging",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/gateway/logging/switch",
+      "uri": "http://192.168.0.102/gateway/logging/switch"
+    },
+    {
+      "id": "/gateway/logging/reqBusVar",
+      "uri": "http://192.168.0.102/gateway/logging/reqBusVar"
+    },
+    {
+      "id": "/gateway/logging/userAcceptance",
+      "uri": "http://192.168.0.102/gateway/logging/userAcceptance"
+    }
+  ]
+}
+
+---
+
+27. /heatingCircuits/hc1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatingCircuits/hc1/currentRoomSetpoint",
+      "uri": "http://192.168.0.102/heatingCircuits/hc1/currentRoomSetpoint"
+    },
+    {
+      "id": "/heatingCircuits/hc1/actualSupplyTemperature",
+      "uri": "http://192.168.0.102/heatingCircuits/hc1/actualSupplyTemperature"
+    },
+    {
+      "id": "/heatingCircuits/hc1/operationMode",
+      "uri": "http://192.168.0.102/heatingCircuits/hc1/operationMode"
+   ...[KATKAISTU]
+
+---
+
+28. /heatSources/info
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/info",
+  "type": "systeminfo",
+  "recordable": 0,
+  "writeable": 0,
+  "values": [
+    {
+      "Tok": "8",
+      "Id": "20008",
+      "Ver": "107",
+      "No": "000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}
+
+---
+
+29. /heatSources/actualModulation
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/actualModulation",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 100,
+  "unitOfMeasure": "%"
+}
+
+---
+
+30. /heatSources/burnerModulationSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/burnerModulationSetpoint",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 255,
+  "unitOfMeasure": "%"
+}
+
+---
+
+31. /heatSources/flameStatus
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/flameStatus",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "off",
+  "allowedValues": [
+    "off",
+    "on"
+  ]
+}
+
+---
+
+32. /heatSources/CHpumpModulation
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/CHpumpModulation",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 62,
+  "unitOfMeasure": "%"
+}
+
+---
+
+33. /heatSources/actualSupplyTemperature
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/actualSupplyTemperature",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 40.8,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+34. /heatSources/powerSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/powerSetpoint",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 255,
+  "unitOfMeasure": "%"
+}
+
+---
+
+35. /heatSources/fanSpeed_setpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/fanSpeed_setpoint",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "rpm"
+}
+
+---
+
+36. /heatSources/ChimneySweeper
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/ChimneySweeper",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "off"
+}
+
+---
+
+37. /heatSources/returnTemperature
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/returnTemperature",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 40.1,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+38. /heatSources/numberOfStarts
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/numberOfStarts",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 12131,
+  "unitOfMeasure": " "
+}
+
+---
+
+39. /heatSources/supplyTemperatureSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/supplyTemperatureSetpoint",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 25,
+  "unitOfMeasure": "C"
+}
+
+---
+
+40. /heatSources/applianceSupplyTemperature
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/applianceSupplyTemperature",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 45.2,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+41. /heatSources/nominalCHPower
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/nominalCHPower",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 24,
+  "unitOfMeasure": "kW"
+}
+
+---
+
+42. /heatSources/nominalDHWPower
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/nominalDHWPower",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 24,
+  "unitOfMeasure": "kW"
+}
+
+---
+
+43. /heatSources/smartGridMode
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+44. /heatSources/evuActive
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+45. /heatSources/elecSolarCollectorActive
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+46. /heatSources/poolTemperature
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/poolTemperature",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": -3276.8,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+47. /heatSources/outdoorType
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+48. /heatSources/indoorType
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+49. /heatSources/delayTimer
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/delayTimer",
+  "type": "arrayData",
+  "writeable": 0,
+  "recordable": 0,
+  "values": [
+    "alarm",
+    "dhw",
+    "ch"
+  ],
+  "allowedValues": [
+    "warm",
+    "compStart",
+    "integrator",
+    "addIntegrator",
+    "alarm",
+    "dhw",
+    "ch",
+    "mixer",
+    "hc1CoolStart",
+    "hc2CoolStart",
+    "hc3CoolStart",
+    "hc4CoolStart",
+    "hc1HeatStart",
+    "hc2HeatStart",
+    "hc3HeatStart",
+    "hc4HeatStart",
+    "hc1CoolStop",
+    "hc2CoolStop",
+    "hc3CoolStop"...[KATKAISTU]
+
+---
+
+50. /heatSources/heating
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/heating",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/heating/extBlocked",
+      "uri": "http://192.168.0.102/heatSources/heating/extBlocked"
+    }
+  ]
+}
+
+---
+
+51. /heatSources/Source
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/Source",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/Source/Compressor",
+      "uri": "http://192.168.0.102/heatSources/Source/Compressor"
+    },
+    {
+      "id": "/heatSources/Source/eHeater",
+      "uri": "http://192.168.0.102/heatSources/Source/eHeater"
+    }
+  ]
+}
+
+---
+
+52. /heatSources/sensors
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/sensors",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/sensors/evaporatorTemp",
+      "uri": "http://192.168.0.102/heatSources/sensors/evaporatorTemp"
+    }
+  ]
+}
+
+---
+
+53. /heatSources/workingTime
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/workingTime",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/workingTime/totalSystem",
+      "uri": "http://192.168.0.102/heatSources/workingTime/totalSystem"
+    },
+    {
+      "id": "/heatSources/workingTime/secondBurner",
+      "uri": "http://192.168.0.102/heatSources/workingTime/secondBurner"
+    },
+    {
+      "id": "/heatSources/workingTime/centralHeating",
+      "uri": "http://192.168.0.102/heatSources/workingTime/centralHeating"
+    }
+  ]
+}
+
+---
+
+54. /heatSources/fuelCell
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/fuelCell",
+  "type": "refEnum",
+  "references": []
+}
+
+---
+
+55. /heatSources/energyMonitoring
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/energyMonitoring",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/energyMonitoring/consumption",
+      "uri": "http://192.168.0.102/heatSources/energyMonitoring/consumption"
+    },
+    {
+      "id": "/heatSources/energyMonitoring/correctionFactor",
+      "uri": "http://192.168.0.102/heatSources/energyMonitoring/correctionFactor"
+    },
+    {
+      "id": "/heatSources/energyMonitoring/maxTankLevel",
+      "uri": "http://192.168.0.102/heatSources/ene...[KATKAISTU]
+
+---
+
+56. /heatSources/hs1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/hs1",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/hs1/info",
+      "uri": "http://192.168.0.102/heatSources/hs1/info"
+    },
+    {
+      "id": "/heatSources/hs1/type",
+      "uri": "http://192.168.0.102/heatSources/hs1/type"
+    },
+    {
+      "id": "/heatSources/hs1/actualModulation",
+      "uri": "http://192.168.0.102/heatSources/hs1/actualModulation"
+    },
+    {
+      "id": "/heatSources/hs1/flameStatus",
+      "uri": "http://192.168.0.102/h...[KATKAISTU]
+
+---
+
+57. /heatSources/ch
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/ch",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/ch/energyMonitoring",
+      "uri": "http://192.168.0.102/heatSources/ch/energyMonitoring"
+    }
+  ]
+}
+
+---
+
+58. /heatSources/dhw
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/dhw",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/dhw/energyMonitoring",
+      "uri": "http://192.168.0.102/heatSources/dhw/energyMonitoring"
+    }
+  ]
+}
+
+---
+
+59. /heatSources/pool
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/pool",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/pool/energyMonitoring",
+      "uri": "http://192.168.0.102/heatSources/pool/energyMonitoring"
+    }
+  ]
+}
+
+---
+
+60. /heatSources/cooling
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/cooling",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/cooling/extBlocked",
+      "uri": "http://192.168.0.102/heatSources/cooling/extBlocked"
+    },
+    {
+      "id": "/heatSources/cooling/energyMonitoring",
+      "uri": "http://192.168.0.102/heatSources/cooling/energyMonitoring"
+    }
+  ]
+}
+
+---
+
+61. /heatSources/total
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/total",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/total/energyMonitoring",
+      "uri": "http://192.168.0.102/heatSources/total/energyMonitoring"
+    }
+  ]
+}
+
+---
+
+62. /heatSources/electricGrid
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/electricGrid",
+  "type": "refEnum",
+  "references": []
+}
+
+---
+
+63. /recordings/system
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/system",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/system/sensors",
+      "uri": "http://192.168.0.102/recordings/system/sensors"
+    },
+    {
+      "id": "/recordings/system/heatSources",
+      "uri": "http://192.168.0.102/recordings/system/heatSources"
+    }
+  ]
+}
+
+---
+
+64. /recordings/heatSources
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatSources",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/heatSources/hs1",
+      "uri": "http://192.168.0.102/recordings/heatSources/hs1"
+    },
+    {
+      "id": "/recordings/heatSources/total",
+      "uri": "http://192.168.0.102/recordings/heatSources/total"
+    }
+  ]
+}
+
+---
+
+65. /recordings/heatingCircuits
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatingCircuits",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/heatingCircuits/hc1",
+      "uri": "http://192.168.0.102/recordings/heatingCircuits/hc1"
+    }
+  ]
+}
+
+---
+
+66. /recordings/dhwCircuits
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/dhwCircuits",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/dhwCircuits/dhw1",
+      "uri": "http://192.168.0.102/recordings/dhwCircuits/dhw1"
+    }
+  ]
+}
+
+---
+
+67. /system/brand
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/brand",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "Bosch",
+  "allowedValues": [
+    "unknown",
+    "Bosch",
+    "Junkers",
+    "Buderus",
+    "Nefit",
+    "Sieger",
+    "Tata",
+    "Dakon",
+    "Elm",
+    "Boulter",
+    "Vulcano",
+    "Worcester",
+    "British Gas",
+    "IVT",
+    "Geminox",
+    "Neckar",
+    "Zeus",
+    "Milton"
+  ]
+}
+
+---
+
+68. /system/systemType
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/systemType",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "NSC_ICOM_GATEWAY",
+  "allowedValues": [
+    "NSC_ICOM_GATEWAY"
+  ]
+}
+
+---
+
+69. /system/bus
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/bus",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "EMS2_0",
+  "allowedValues": [
+    "No_Bus",
+    "EMS1_0",
+    "EMS2_0",
+    "CAN"
+  ]
+}
+
+---
+
+70. /system/busReq
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+71. /system/info
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/info",
+  "type": "systeminfo",
+  "recordable": 0,
+  "writeable": 0,
+  "values": [
+    {
+      "Tok": "8",
+      "Id": "172",
+      "Ver": "01.07",
+      "No": "000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "Tok": "16",
+      "Id": "158",
+      "Ver": "NF13.05",
+      "No": "323533303635383530363835323837333737303634333900FFFFFF"
+    }
+  ]
+}
+
+---
+
+72. /system/minOutdoorTemp
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/minOutdoorTemp",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": -35,
+  "unitOfMeasure": "C",
+  "minValue": -35,
+  "maxValue": 10
+}
+
+---
+
+73. /system/healthStatus
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/healthStatus",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "ok",
+  "allowedValues": [
+    "error",
+    "maintenance",
+    "ok"
+  ]
+}
+
+---
+
+74. /system/sensors
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/sensors",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/sensors/temperatures",
+      "uri": "http://192.168.0.102/system/sensors/temperatures"
+    }
+  ]
+}
+
+---
+
+75. /system/appliance
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/appliance",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/appliance/actualSupplyTemperature",
+      "uri": "http://192.168.0.102/system/appliance/actualSupplyTemperature"
+    }
+  ]
+}
+
+---
+
+76. /system/holidayModes
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/holidayModes/hm1",
+      "uri": "http://192.168.0.102/system/holidayModes/hm1"
+    },
+    {
+      "id": "/system/holidayModes/hm2",
+      "uri": "http://192.168.0.102/system/holidayModes/hm2"
+    },
+    {
+      "id": "/system/holidayModes/hm3",
+      "uri": "http://192.168.0.102/system/holidayModes/hm3"
+    },
+    {
+      "id": "/system/holidayModes/hm4",
+      "uri": "http://192.168.0.102/system/...[KATKAISTU]
+
+---
+
+77. /application/tbso/electricity
+Status: ✅ SUCCESS
+Data: {
+  "id": "/application/tbso/electricity",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/application/tbso/electricity/tariffID",
+      "uri": "http://192.168.0.102/application/tbso/electricity/tariffID"
+    },
+    {
+      "id": "/application/tbso/electricity/setPointDayOverlay",
+      "uri": "http://192.168.0.102/application/tbso/electricity/setPointDayOverlay"
+    }
+  ]
+}
+
+---
+
+78. /application/tbso/enable
+Status: ✅ SUCCESS
+Data: {
+  "id": "/application/tbso/enable",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "off",
+  "allowedValues": [
+    "off",
+    "on"
+  ]
+}
+
+---
+
+79. /dhwCircuits/dhw1/operationMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/operationMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "low",
+  "allowedValues": [
+    "Off",
+    "low",
+    "high",
+    "ownprogram"
+  ]
+}
+
+---
+
+80. /dhwCircuits/dhw1/switchPrograms
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/switchPrograms",
+  "type": "refEnum",
+  "references": []
+}
+
+---
+
+81. /dhwCircuits/dhw1/temperatureLevels
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/temperatureLevels",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/dhwCircuits/dhw1/temperatureLevels/off",
+      "uri": "http://192.168.0.102/dhwCircuits/dhw1/temperatureLevels/off"
+    },
+    {
+      "id": "/dhwCircuits/dhw1/temperatureLevels/low",
+      "uri": "http://192.168.0.102/dhwCircuits/dhw1/temperatureLevels/low"
+    },
+    {
+      "id": "/dhwCircuits/dhw1/temperatureLevels/high",
+      "uri": "http://192.168.0.102/dhwCircuits/dhw1/temperatureL...[KATKAISTU]
+
+---
+
+82. /dhwCircuits/dhw1/currentSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/currentSetpoint",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 49,
+  "unitOfMeasure": "C"
+}
+
+---
+
+83. /dhwCircuits/dhw1/actualTemp
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/actualTemp",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 40,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+84. /dhwCircuits/dhw1/waterFlow
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/waterFlow",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "l/min"
+}
+
+---
+
+85. /dhwCircuits/dhw1/workingTime
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/workingTime",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "mins"
+}
+
+---
+
+86. /dhwCircuits/dhw1/charge
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/charge",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "stop",
+  "allowedValues": [
+    "stop",
+    "start"
+  ]
+}
+
+---
+
+87. /dhwCircuits/dhw1/chargeDuration
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/chargeDuration",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 60,
+  "unitOfMeasure": "mins",
+  "minValue": 15,
+  "maxValue": 2880
+}
+
+---
+
+88. /dhwCircuits/dhw1/tdMode
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+89. /dhwCircuits/dhw1/tdsetPoint
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+90. /dhwCircuits/dhw1/cpStartph
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+91. /dhwCircuits/dhw1/singleChargeSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/singleChargeSetpoint",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 65,
+  "unitOfMeasure": "C",
+  "minValue": 50,
+  "maxValue": 70
+}
+
+---
+
+92. /dhwCircuits/dhw1/extBlocked
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+93. /dhwCircuits/dhw1/highStop
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+94. /dhwCircuits/dhw1/holidayMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/holidayMode",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/dhwCircuits/dhw1/holidayMode/activated",
+      "uri": "http://192.168.0.102/dhwCircuits/dhw1/holidayMode/activated"
+    }
+  ]
+}
+
+---
+
+95. /dhwCircuits/dhw1/status
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/status",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "ACTIVE",
+  "allowedValues": [
+    "INACTIVE",
+    "ACTIVE"
+  ]
+}
+
+---
+
+96. /gateway/update/version
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+97. /gateway/update/request
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+98. /gateway/update/strategy
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+99. /gateway/update/status
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/update/status",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "completed",
+  "allowedValues": [
+    "inprogress",
+    "completed",
+    "interrupted"
+  ]
+}
+
+---
+
+100. /gateway/logging/switch
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+101. /gateway/logging/reqBusVar
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+102. /gateway/logging/userAcceptance
+Status: ✅ SUCCESS
+Data: {
+  "id": "/gateway/logging/userAcceptance",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "false",
+  "allowedValues": [
+    "false",
+    "true"
+  ]
+}
+
+---
+
+103. /heatingCircuits/hc1/currentRoomSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/currentRoomSetpoint",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 19,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "off": 0
+    }
+  ]
+}
+
+---
+
+104. /heatingCircuits/hc1/actualSupplyTemperature
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/actualSupplyTemperature",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 40.9,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+105. /heatingCircuits/hc1/operationMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/operationMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "manual",
+  "allowedValues": [
+    "auto",
+    "manual"
+  ]
+}
+
+---
+
+106. /heatingCircuits/hc1/temperatureRoomSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/temperatureRoomSetpoint",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 19,
+  "unitOfMeasure": "C",
+  "minValue": 5,
+  "maxValue": 30,
+  "state": [
+    {
+      "off": 0
+    }
+  ]
+}
+
+---
+
+107. /heatingCircuits/hc1/supplyTemperatureSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/supplyTemperatureSetpoint",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 25,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "off_heat": 0
+    },
+    {
+      "off_cool": 90
+    }
+  ]
+}
+
+---
+
+108. /heatingCircuits/hc1/manualRoomSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/manualRoomSetpoint",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 19,
+  "unitOfMeasure": "C",
+  "minValue": 5,
+  "maxValue": 30,
+  "state": [
+    {
+      "off": 0
+    }
+  ]
+}
+
+---
+
+109. /heatingCircuits/hc1/temporaryRoomSetpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/temporaryRoomSetpoint",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": -1,
+  "unitOfMeasure": "C",
+  "minValue": 5,
+  "maxValue": 30,
+  "state": [
+    {
+      "off": 0
+    },
+    {
+      "na": -1
+    }
+  ]
+}
+
+---
+
+110. /heatingCircuits/hc1/roomtemperature
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/roomtemperature",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 1,
+  "value": -3276.8,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+111. /heatingCircuits/hc1/activeSwitchProgram
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/activeSwitchProgram",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "A",
+  "allowedValues": [
+    "A",
+    "B"
+  ]
+}
+
+---
+
+112. /heatingCircuits/hc1/switchProgramMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/switchProgramMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "levels",
+  "allowedValues": [
+    "levels"
+  ]
+}
+
+---
+
+113. /heatingCircuits/hc1/switchPrograms
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/switchPrograms",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatingCircuits/hc1/switchPrograms/A",
+      "uri": "http://192.168.0.102/heatingCircuits/hc1/switchPrograms/A"
+    },
+    {
+      "id": "/heatingCircuits/hc1/switchPrograms/B",
+      "uri": "http://192.168.0.102/heatingCircuits/hc1/switchPrograms/B"
+    }
+  ]
+}
+
+---
+
+114. /heatingCircuits/hc1/temperatureLevels
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/temperatureLevels",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatingCircuits/hc1/temperatureLevels/eco",
+      "uri": "http://192.168.0.102/heatingCircuits/hc1/temperatureLevels/eco"
+    },
+    {
+      "id": "/heatingCircuits/hc1/temperatureLevels/comfort2",
+      "uri": "http://192.168.0.102/heatingCircuits/hc1/temperatureLevels/comfort2"
+    }
+  ]
+}
+
+---
+
+115. /heatingCircuits/hc1/pumpModulation
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/pumpModulation",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 62,
+  "unitOfMeasure": "%"
+}
+
+---
+
+116. /heatingCircuits/hc1/suWiThreshold
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/suWiThreshold",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 17,
+  "unitOfMeasure": "C",
+  "minValue": 10,
+  "maxValue": 30
+}
+
+---
+
+117. /heatingCircuits/hc1/designTemp
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+118. /heatingCircuits/hc1/heatCurveMin
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+119. /heatingCircuits/hc1/roomTempOffset
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+120. /heatingCircuits/hc1/heatCurveMax
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+121. /heatingCircuits/hc1/controlType
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+122. /heatingCircuits/hc1/roomInfluence
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+123. /heatingCircuits/hc1/fastHeatupFactor
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/fastHeatupFactor",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "%",
+  "minValue": 1,
+  "maxValue": 100,
+  "state": [
+    {
+      "off": 0
+    }
+  ]
+}
+
+---
+
+124. /heatingCircuits/hc1/suWiSwitchMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/suWiSwitchMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "automatic",
+  "allowedValues": [
+    "off",
+    "automatic",
+    "forced"
+  ]
+}
+
+---
+
+125. /heatingCircuits/hc1/currentOpModeInfo
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+126. /heatingCircuits/hc1/cooling
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/cooling",
+  "type": "refEnum",
+  "references": []
+}
+
+---
+
+127. /heatingCircuits/hc1/currentSuWiMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/currentSuWiMode",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "forced",
+  "allowedValues": [
+    "off",
+    "forced",
+    "cooling"
+  ]
+}
+
+---
+
+128. /heatingCircuits/hc1/holidayMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/holidayMode",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatingCircuits/hc1/holidayMode/activated",
+      "uri": "http://192.168.0.102/heatingCircuits/hc1/holidayMode/activated"
+    }
+  ]
+}
+
+---
+
+129. /heatingCircuits/hc1/status
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/status",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "ACTIVE",
+  "allowedValues": [
+    "INACTIVE",
+    "ACTIVE"
+  ]
+}
+
+---
+
+130. /heatSources/heating/extBlocked
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+131. /heatSources/Source/Compressor
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/Source/Compressor",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/Source/Compressor/extBlocked",
+      "uri": "http://192.168.0.102/heatSources/Source/Compressor/extBlocked"
+    },
+    {
+      "id": "/heatSources/Source/Compressor/power",
+      "uri": "http://192.168.0.102/heatSources/Source/Compressor/power"
+    }
+  ]
+}
+
+---
+
+132. /heatSources/Source/eHeater
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/Source/eHeater",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/Source/eHeater/extBlocked",
+      "uri": "http://192.168.0.102/heatSources/Source/eHeater/extBlocked"
+    },
+    {
+      "id": "/heatSources/Source/eHeater/dhw",
+      "uri": "http://192.168.0.102/heatSources/Source/eHeater/dhw"
+    },
+    {
+      "id": "/heatSources/Source/eHeater/status",
+      "uri": "http://192.168.0.102/heatSources/Source/eHeater/status"
+    }
+  ]
+}
+
+---
+
+133. /heatSources/sensors/evaporatorTemp
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+134. /heatSources/workingTime/totalSystem
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/workingTime/totalSystem",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 79517896,
+  "unitOfMeasure": "s"
+}
+
+---
+
+135. /heatSources/workingTime/secondBurner
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/workingTime/secondBurner",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "mins"
+}
+
+---
+
+136. /heatSources/workingTime/centralHeating
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/workingTime/centralHeating",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "mins"
+}
+
+---
+
+137. /heatSources/energyMonitoring/consumption
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/energyMonitoring/consumption",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 1127.9,
+  "unitOfMeasure": "kWh",
+  "minValue": 0,
+  "maxValue": 135780000
+}
+
+---
+
+138. /heatSources/energyMonitoring/correctionFactor
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/energyMonitoring/correctionFactor",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 0.8,
+  "unitOfMeasure": " ",
+  "minValue": 0.7,
+  "maxValue": 1.3
+}
+
+---
+
+139. /heatSources/energyMonitoring/maxTankLevel
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/energyMonitoring/maxTankLevel",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "kWh",
+  "minValue": 0,
+  "maxValue": 135780000
+}
+
+---
+
+140. /heatSources/energyMonitoring/minTankLevel
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/energyMonitoring/minTankLevel",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "kWh",
+  "minValue": 0,
+  "maxValue": 135780000
+}
+
+---
+
+141. /heatSources/energyMonitoring/tankLevel
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/energyMonitoring/tankLevel",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "kWh",
+  "minValue": 0,
+  "maxValue": 135780000
+}
+
+---
+
+142. /heatSources/energyMonitoring/startDateTime
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/energyMonitoring/startDateTime",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "2025-09-21T15:06:41"
+}
+
+---
+
+143. /heatSources/hs1/info
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/hs1/info",
+  "type": "systeminfo",
+  "recordable": 0,
+  "writeable": 0,
+  "values": [
+    {
+      "Tok": "8",
+      "Id": "20008",
+      "Ver": "107",
+      "No": "000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}
+
+---
+
+144. /heatSources/hs1/type
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/hs1/type",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "Heatpump",
+  "allowedValues": [
+    "No_Appliance",
+    "OilBoiler",
+    "GasBoiler",
+    "Heatpump",
+    "unknownBoiler"
+  ]
+}
+
+---
+
+145. /heatSources/hs1/actualModulation
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/hs1/actualModulation",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 100,
+  "unitOfMeasure": "%"
+}
+
+---
+
+146. /heatSources/hs1/flameStatus
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/hs1/flameStatus",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "off",
+  "allowedValues": [
+    "off",
+    "on"
+  ]
+}
+
+---
+
+147. /heatSources/ch/energyMonitoring
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/ch/energyMonitoring",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/ch/energyMonitoring/outputProduced",
+      "uri": "http://192.168.0.102/heatSources/ch/energyMonitoring/outputProduced"
+    },
+    {
+      "id": "/heatSources/ch/energyMonitoring/eheater",
+      "uri": "http://192.168.0.102/heatSources/ch/energyMonitoring/eheater"
+    },
+    {
+      "id": "/heatSources/ch/energyMonitoring/compressor",
+      "uri": "http://192.168.0.102/heatSources...[KATKAISTU]
+
+---
+
+148. /heatSources/dhw/energyMonitoring
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/dhw/energyMonitoring",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/dhw/energyMonitoring/outputProduced",
+      "uri": "http://192.168.0.102/heatSources/dhw/energyMonitoring/outputProduced"
+    },
+    {
+      "id": "/heatSources/dhw/energyMonitoring/eheater",
+      "uri": "http://192.168.0.102/heatSources/dhw/energyMonitoring/eheater"
+    },
+    {
+      "id": "/heatSources/dhw/energyMonitoring/compressor",
+      "uri": "http://192.168.0.102/heatS...[KATKAISTU]
+
+---
+
+149. /heatSources/pool/energyMonitoring
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/pool/energyMonitoring",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/pool/energyMonitoring/outputProduced",
+      "uri": "http://192.168.0.102/heatSources/pool/energyMonitoring/outputProduced"
+    },
+    {
+      "id": "/heatSources/pool/energyMonitoring/eheater",
+      "uri": "http://192.168.0.102/heatSources/pool/energyMonitoring/eheater"
+    },
+    {
+      "id": "/heatSources/pool/energyMonitoring/compressor",
+      "uri": "http://192.168.0.102...[KATKAISTU]
+
+---
+
+150. /heatSources/cooling/extBlocked
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+151. /heatSources/cooling/energyMonitoring
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/cooling/energyMonitoring",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/cooling/energyMonitoring/consumedEnergy",
+      "uri": "http://192.168.0.102/heatSources/cooling/energyMonitoring/consumedEnergy"
+    },
+    {
+      "id": "/heatSources/cooling/energyMonitoring/outputProduced",
+      "uri": "http://192.168.0.102/heatSources/cooling/energyMonitoring/outputProduced"
+    },
+    {
+      "id": "/heatSources/cooling/energyMonitoring/compressor",
+  ...[KATKAISTU]
+
+---
+
+152. /heatSources/total/energyMonitoring
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatSources/total/energyMonitoring",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/heatSources/total/energyMonitoring/consumedEnergy",
+      "uri": "http://192.168.0.102/heatSources/total/energyMonitoring/consumedEnergy"
+    },
+    {
+      "id": "/heatSources/total/energyMonitoring/outputProduced",
+      "uri": "http://192.168.0.102/heatSources/total/energyMonitoring/outputProduced"
+    },
+    {
+      "id": "/heatSources/total/energyMonitoring/eheater",
+      "uri": "htt...[KATKAISTU]
+
+---
+
+153. /recordings/system/sensors
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/system/sensors",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/system/sensors/temperatures",
+      "uri": "http://192.168.0.102/recordings/system/sensors/temperatures"
+    }
+  ]
+}
+
+---
+
+154. /recordings/system/heatSources
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/system/heatSources",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/system/heatSources/hs1",
+      "uri": "http://192.168.0.102/recordings/system/heatSources/hs1"
+    }
+  ]
+}
+
+---
+
+155. /recordings/heatSources/hs1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatSources/hs1",
+  "type": "refEnum",
+  "references": []
+}
+
+---
+
+156. /recordings/heatSources/total
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatSources/total",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/heatSources/total/energyMonitoring",
+      "uri": "http://192.168.0.102/recordings/heatSources/total/energyMonitoring"
+    }
+  ]
+}
+
+---
+
+157. /recordings/heatingCircuits/hc1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatingCircuits/hc1",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/heatingCircuits/hc1/roomtemperature",
+      "uri": "http://192.168.0.102/recordings/heatingCircuits/hc1/roomtemperature"
+    }
+  ]
+}
+
+---
+
+158. /recordings/dhwCircuits/dhw1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/dhwCircuits/dhw1",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/dhwCircuits/dhw1/actualTemp",
+      "uri": "http://192.168.0.102/recordings/dhwCircuits/dhw1/actualTemp"
+    }
+  ]
+}
+
+---
+
+159. /system/sensors/temperatures
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/sensors/temperatures",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/sensors/temperatures/outdoor_t1",
+      "uri": "http://192.168.0.102/system/sensors/temperatures/outdoor_t1"
+    },
+    {
+      "id": "/system/sensors/temperatures/supply_t1_setpoint",
+      "uri": "http://192.168.0.102/system/sensors/temperatures/supply_t1_setpoint"
+    },
+    {
+      "id": "/system/sensors/temperatures/supply_t1",
+      "uri": "http://192.168.0.102/system/sensors/tempera...[KATKAISTU]
+
+---
+
+160. /system/appliance/actualSupplyTemperature
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/appliance/actualSupplyTemperature",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 40.9,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+161. /system/holidayModes/hm1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm1",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/holidayModes/hm1/startStop",
+      "uri": "http://192.168.0.102/system/holidayModes/hm1/startStop"
+    },
+    {
+      "id": "/system/holidayModes/hm1/assignedTo",
+      "uri": "http://192.168.0.102/system/holidayModes/hm1/assignedTo"
+    },
+    {
+      "id": "/system/holidayModes/hm1/hcMode",
+      "uri": "http://192.168.0.102/system/holidayModes/hm1/hcMode"
+    },
+    {
+      "id": "/system/h...[KATKAISTU]
+
+---
+
+162. /system/holidayModes/hm2
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm2",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/holidayModes/hm2/startStop",
+      "uri": "http://192.168.0.102/system/holidayModes/hm2/startStop"
+    },
+    {
+      "id": "/system/holidayModes/hm2/assignedTo",
+      "uri": "http://192.168.0.102/system/holidayModes/hm2/assignedTo"
+    },
+    {
+      "id": "/system/holidayModes/hm2/hcMode",
+      "uri": "http://192.168.0.102/system/holidayModes/hm2/hcMode"
+    },
+    {
+      "id": "/system/h...[KATKAISTU]
+
+---
+
+163. /system/holidayModes/hm3
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm3",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/holidayModes/hm3/startStop",
+      "uri": "http://192.168.0.102/system/holidayModes/hm3/startStop"
+    },
+    {
+      "id": "/system/holidayModes/hm3/assignedTo",
+      "uri": "http://192.168.0.102/system/holidayModes/hm3/assignedTo"
+    },
+    {
+      "id": "/system/holidayModes/hm3/hcMode",
+      "uri": "http://192.168.0.102/system/holidayModes/hm3/hcMode"
+    },
+    {
+      "id": "/system/h...[KATKAISTU]
+
+---
+
+164. /system/holidayModes/hm4
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm4",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/holidayModes/hm4/startStop",
+      "uri": "http://192.168.0.102/system/holidayModes/hm4/startStop"
+    },
+    {
+      "id": "/system/holidayModes/hm4/assignedTo",
+      "uri": "http://192.168.0.102/system/holidayModes/hm4/assignedTo"
+    },
+    {
+      "id": "/system/holidayModes/hm4/hcMode",
+      "uri": "http://192.168.0.102/system/holidayModes/hm4/hcMode"
+    },
+    {
+      "id": "/system/h...[KATKAISTU]
+
+---
+
+165. /system/holidayModes/hm5
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm5",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/system/holidayModes/hm5/startStop",
+      "uri": "http://192.168.0.102/system/holidayModes/hm5/startStop"
+    },
+    {
+      "id": "/system/holidayModes/hm5/assignedTo",
+      "uri": "http://192.168.0.102/system/holidayModes/hm5/assignedTo"
+    },
+    {
+      "id": "/system/holidayModes/hm5/hcMode",
+      "uri": "http://192.168.0.102/system/holidayModes/hm5/hcMode"
+    },
+    {
+      "id": "/system/h...[KATKAISTU]
+
+---
+
+166. /application/tbso/electricity/tariffID
+Status: ✅ SUCCESS
+Data: {
+  "id": "/application/tbso/electricity/tariffID",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": " ",
+  "minValue": 1,
+  "maxValue": 30
+}
+
+---
+
+167. /application/tbso/electricity/setPointDayOverlay
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+168. /dhwCircuits/dhw1/temperatureLevels/off
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/temperatureLevels/off",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 0,
+  "unitOfMeasure": "C"
+}
+
+---
+
+169. /dhwCircuits/dhw1/temperatureLevels/low
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/temperatureLevels/low",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 45,
+  "unitOfMeasure": "C",
+  "minValue": 40,
+  "maxValue": 55
+}
+
+---
+
+170. /dhwCircuits/dhw1/temperatureLevels/high
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/temperatureLevels/high",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 55,
+  "unitOfMeasure": "C",
+  "minValue": 40,
+  "maxValue": 55
+}
+
+---
+
+171. /dhwCircuits/dhw1/holidayMode/activated
+Status: ✅ SUCCESS
+Data: {
+  "id": "/dhwCircuits/dhw1/holidayMode/activated",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "",
+  "allowedValues": [
+    "",
+    "hm1",
+    "hm2",
+    "hm3",
+    "hm4",
+    "hm5"
+  ]
+}
+
+---
+
+172. /heatingCircuits/hc1/switchPrograms/A
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/switchPrograms/A",
+  "type": "switchProgram",
+  "setpointProperty": {
+    "id": "/heatingCircuits/hc1/temperatureLevels",
+    "uri": "http://192.168.0.102/heatingCircuits/hc1/temperatureLevels"
+  },
+  "maxNbOfSwitchPoints": 14,
+  "maxNbOfSwitchPointsPerDay": 2,
+  "switchPointTimeRaster": 15,
+  "writeable": 1,
+  "switchPoints": [
+    {
+      "dayOfWeek": "Mo",
+      "setpoint": "comfort2",
+      "time": 360
+    },
+    {
+      "dayOfWeek": "Mo",
+      "setpoint": "e...[KATKAISTU]
+
+---
+
+173. /heatingCircuits/hc1/switchPrograms/B
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/switchPrograms/B",
+  "type": "switchProgram",
+  "setpointProperty": {
+    "id": "/heatingCircuits/hc1/temperatureLevels",
+    "uri": "http://192.168.0.102/heatingCircuits/hc1/temperatureLevels"
+  },
+  "maxNbOfSwitchPoints": 14,
+  "maxNbOfSwitchPointsPerDay": 2,
+  "switchPointTimeRaster": 15,
+  "writeable": 1,
+  "switchPoints": [
+    {
+      "dayOfWeek": "Mo",
+      "setpoint": "comfort2",
+      "time": 360
+    },
+    {
+      "dayOfWeek": "Mo",
+      "setpoint": "e...[KATKAISTU]
+
+---
+
+174. /heatingCircuits/hc1/temperatureLevels/eco
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/temperatureLevels/eco",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 15,
+  "unitOfMeasure": "C",
+  "minValue": 5,
+  "maxValue": 22.5,
+  "state": [
+    {
+      "off": 0
+    }
+  ]
+}
+
+---
+
+175. /heatingCircuits/hc1/temperatureLevels/comfort2
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/temperatureLevels/comfort2",
+  "type": "floatValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": 23,
+  "unitOfMeasure": "C",
+  "minValue": 15.5,
+  "maxValue": 30
+}
+
+---
+
+176. /heatingCircuits/hc1/holidayMode/activated
+Status: ✅ SUCCESS
+Data: {
+  "id": "/heatingCircuits/hc1/holidayMode/activated",
+  "type": "stringValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": "",
+  "allowedValues": [
+    "",
+    "hm1",
+    "hm2",
+    "hm3",
+    "hm4",
+    "hm5"
+  ]
+}
+
+---
+
+177. /heatSources/Source/Compressor/extBlocked
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+178. /heatSources/Source/Compressor/power
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+179. /heatSources/Source/eHeater/extBlocked
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+180. /heatSources/Source/eHeater/dhw
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+181. /heatSources/Source/eHeater/status
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+182. /heatSources/ch/energyMonitoring/outputProduced
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+183. /heatSources/ch/energyMonitoring/eheater
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+184. /heatSources/ch/energyMonitoring/compressor
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+185. /heatSources/ch/energyMonitoring/workingTime
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+186. /heatSources/ch/energyMonitoring/numberOfStarts
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+187. /heatSources/dhw/energyMonitoring/outputProduced
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+188. /heatSources/dhw/energyMonitoring/eheater
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+189. /heatSources/dhw/energyMonitoring/compressor
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+190. /heatSources/dhw/energyMonitoring/workingTime
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+191. /heatSources/dhw/energyMonitoring/numberOfStarts
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+192. /heatSources/pool/energyMonitoring/outputProduced
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+193. /heatSources/pool/energyMonitoring/eheater
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+194. /heatSources/pool/energyMonitoring/compressor
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+195. /heatSources/pool/energyMonitoring/workingTime
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+196. /heatSources/pool/energyMonitoring/numberOfStarts
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+197. /heatSources/cooling/energyMonitoring/consumedEnergy
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+198. /heatSources/cooling/energyMonitoring/outputProduced
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+199. /heatSources/cooling/energyMonitoring/compressor
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+200. /heatSources/cooling/energyMonitoring/workingTime
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+201. /heatSources/cooling/energyMonitoring/numberOfStarts
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+202. /heatSources/total/energyMonitoring/consumedEnergy
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+203. /heatSources/total/energyMonitoring/outputProduced
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+204. /heatSources/total/energyMonitoring/eheater
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+205. /heatSources/total/energyMonitoring/compressor
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+206. /heatSources/total/energyMonitoring/workingTime
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+207. /heatSources/total/energyMonitoring/numberOfStarts
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+208. /recordings/system/sensors/temperatures
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/system/sensors/temperatures",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/system/sensors/temperatures/outdoor_t1",
+      "uri": "http://192.168.0.102/recordings/system/sensors/temperatures/outdoor_t1"
+    }
+  ]
+}
+
+---
+
+209. /recordings/system/heatSources/hs1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/system/heatSources/hs1",
+  "type": "refEnum",
+  "references": []
+}
+
+---
+
+210. /recordings/heatSources/total/energyMonitoring
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatSources/total/energyMonitoring",
+  "type": "refEnum",
+  "references": [
+    {
+      "id": "/recordings/heatSources/total/energyMonitoring/consumedEnergy",
+      "uri": "http://192.168.0.102/recordings/heatSources/total/energyMonitoring/consumedEnergy"
+    },
+    {
+      "id": "/recordings/heatSources/total/energyMonitoring/outputProduced",
+      "uri": "http://192.168.0.102/recordings/heatSources/total/energyMonitoring/outputProduced"
+    },
+    {
+      "id": "/recordi...[KATKAISTU]
+
+---
+
+211. /recordings/heatingCircuits/hc1/roomtemperature
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatingCircuits/hc1/roomtemperature",
+  "type": "yRecording",
+  "writeable": 0,
+  "recordable": 0,
+  "recordedResource": {
+    "id": "/heatingCircuits/hc1/roomtemperature",
+    "uri": "http://192.168.0.102/heatingCircuits/hc1/roomtemperature"
+  },
+  "interval": "",
+  "sampleRate": "",
+  "recording-type": "actual",
+  "recording": []
+}
+
+---
+
+212. /recordings/dhwCircuits/dhw1/actualTemp
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/dhwCircuits/dhw1/actualTemp",
+  "type": "yRecording",
+  "writeable": 0,
+  "recordable": 0,
+  "recordedResource": {
+    "id": "/dhwCircuits/dhw1/actualTemp",
+    "uri": "http://192.168.0.102/dhwCircuits/dhw1/actualTemp"
+  },
+  "interval": "",
+  "sampleRate": "",
+  "recording-type": "actual",
+  "recording": []
+}
+
+---
+
+213. /system/sensors/temperatures/outdoor_t1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/sensors/temperatures/outdoor_t1",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 1,
+  "value": 7,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+214. /system/sensors/temperatures/supply_t1_setpoint
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/sensors/temperatures/supply_t1_setpoint",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 25,
+  "unitOfMeasure": "C"
+}
+
+---
+
+215. /system/sensors/temperatures/supply_t1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/sensors/temperatures/supply_t1",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 40.9,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+216. /system/sensors/temperatures/return
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/sensors/temperatures/return",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 40.2,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+217. /system/sensors/temperatures/switch
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/sensors/temperatures/switch",
+  "type": "floatValue",
+  "writeable": 0,
+  "recordable": 0,
+  "value": 40.9,
+  "unitOfMeasure": "C",
+  "state": [
+    {
+      "open": -3276.8
+    },
+    {
+      "short": 3276.7
+    }
+  ]
+}
+
+---
+
+218. /system/holidayModes/hm1/startStop
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm1/startStop",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "2009-01-01/2009-01-01"
+}
+
+---
+
+219. /system/holidayModes/hm1/assignedTo
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm1/assignedTo",
+  "type": "arrayData",
+  "writeable": 1,
+  "recordable": 0,
+  "values": [],
+  "allowedValues": [
+    "hc1",
+    "dhw1"
+  ]
+}
+
+---
+
+220. /system/holidayModes/hm1/hcMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm1/hcMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "ECO",
+  "allowedValues": [
+    "AUTO_SAT",
+    "FIX_TEMP",
+    "OFF",
+    "ECO"
+  ]
+}
+
+---
+
+221. /system/holidayModes/hm1/dhwMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm1/dhwMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "OFF",
+  "allowedValues": [
+    "OFF",
+    "TD_OFF"
+  ]
+}
+
+---
+
+222. /system/holidayModes/hm1/delete
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+223. /system/holidayModes/hm2/startStop
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm2/startStop",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "2009-01-01/2009-01-01"
+}
+
+---
+
+224. /system/holidayModes/hm2/assignedTo
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm2/assignedTo",
+  "type": "arrayData",
+  "writeable": 1,
+  "recordable": 0,
+  "values": [],
+  "allowedValues": [
+    "hc1",
+    "dhw1"
+  ]
+}
+
+---
+
+225. /system/holidayModes/hm2/hcMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm2/hcMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "ECO",
+  "allowedValues": [
+    "AUTO_SAT",
+    "FIX_TEMP",
+    "OFF",
+    "ECO"
+  ]
+}
+
+---
+
+226. /system/holidayModes/hm2/dhwMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm2/dhwMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "OFF",
+  "allowedValues": [
+    "OFF",
+    "TD_OFF"
+  ]
+}
+
+---
+
+227. /system/holidayModes/hm2/delete
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+228. /system/holidayModes/hm3/startStop
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm3/startStop",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "2009-01-01/2009-01-01"
+}
+
+---
+
+229. /system/holidayModes/hm3/assignedTo
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm3/assignedTo",
+  "type": "arrayData",
+  "writeable": 1,
+  "recordable": 0,
+  "values": [],
+  "allowedValues": [
+    "hc1",
+    "dhw1"
+  ]
+}
+
+---
+
+230. /system/holidayModes/hm3/hcMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm3/hcMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "ECO",
+  "allowedValues": [
+    "AUTO_SAT",
+    "FIX_TEMP",
+    "OFF",
+    "ECO"
+  ]
+}
+
+---
+
+231. /system/holidayModes/hm3/dhwMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm3/dhwMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "OFF",
+  "allowedValues": [
+    "OFF",
+    "TD_OFF"
+  ]
+}
+
+---
+
+232. /system/holidayModes/hm3/delete
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+233. /system/holidayModes/hm4/startStop
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm4/startStop",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "2009-01-01/2009-01-01"
+}
+
+---
+
+234. /system/holidayModes/hm4/assignedTo
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm4/assignedTo",
+  "type": "arrayData",
+  "writeable": 1,
+  "recordable": 0,
+  "values": [],
+  "allowedValues": [
+    "hc1",
+    "dhw1"
+  ]
+}
+
+---
+
+235. /system/holidayModes/hm4/hcMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm4/hcMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "ECO",
+  "allowedValues": [
+    "AUTO_SAT",
+    "FIX_TEMP",
+    "OFF",
+    "ECO"
+  ]
+}
+
+---
+
+236. /system/holidayModes/hm4/dhwMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm4/dhwMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "OFF",
+  "allowedValues": [
+    "OFF",
+    "TD_OFF"
+  ]
+}
+
+---
+
+237. /system/holidayModes/hm4/delete
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+238. /system/holidayModes/hm5/startStop
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm5/startStop",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "2009-01-01/2009-01-01"
+}
+
+---
+
+239. /system/holidayModes/hm5/assignedTo
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm5/assignedTo",
+  "type": "arrayData",
+  "writeable": 1,
+  "recordable": 0,
+  "values": [],
+  "allowedValues": [
+    "hc1",
+    "dhw1"
+  ]
+}
+
+---
+
+240. /system/holidayModes/hm5/hcMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm5/hcMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "ECO",
+  "allowedValues": [
+    "AUTO_SAT",
+    "FIX_TEMP",
+    "OFF",
+    "ECO"
+  ]
+}
+
+---
+
+241. /system/holidayModes/hm5/dhwMode
+Status: ✅ SUCCESS
+Data: {
+  "id": "/system/holidayModes/hm5/dhwMode",
+  "type": "stringValue",
+  "writeable": 1,
+  "recordable": 0,
+  "value": "OFF",
+  "allowedValues": [
+    "OFF",
+    "TD_OFF"
+  ]
+}
+
+---
+
+242. /system/holidayModes/hm5/delete
+Status: ✅ SUCCESS
+Data: {
+  "Error": "Response status code does not indicate success: 403 (Forbidden)."
+}
+
+---
+
+243. /recordings/system/sensors/temperatures/outdoor_t1
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/system/sensors/temperatures/outdoor_t1",
+  "type": "yRecording",
+  "writeable": 0,
+  "recordable": 0,
+  "recordedResource": {
+    "id": "/system/sensors/temperatures/outdoor_t1",
+    "uri": "http://192.168.0.102/system/sensors/temperatures/outdoor_t1"
+  },
+  "interval": "",
+  "sampleRate": "",
+  "recording-type": "actual",
+  "recording": []
+}
+
+---
+
+244. /recordings/heatSources/total/energyMonitoring/consumedEnergy
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatSources/total/energyMonitoring/consumedEnergy",
+  "type": "yRecording",
+  "writeable": 0,
+  "recordable": 0,
+  "recordedResource": {
+    "id": "/heatSources/total/energyMonitoring/consumedEnergy",
+    "uri": "http://192.168.0.102/heatSources/total/energyMonitoring/consumedEnergy"
+  },
+  "interval": "",
+  "sampleRate": "",
+  "recording-type": "actual",
+  "recording": []
+}
+
+---
+
+245. /recordings/heatSources/total/energyMonitoring/outputProduced
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatSources/total/energyMonitoring/outputProduced",
+  "type": "yRecording",
+  "writeable": 0,
+  "recordable": 0,
+  "recordedResource": {
+    "id": "/heatSources/total/energyMonitoring/outputProduced",
+    "uri": "http://192.168.0.102/heatSources/total/energyMonitoring/outputProduced"
+  },
+  "interval": "",
+  "sampleRate": "",
+  "recording-type": "actual",
+  "recording": []
+}
+
+---
+
+246. /recordings/heatSources/total/energyMonitoring/eheater
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatSources/total/energyMonitoring/eheater",
+  "type": "yRecording",
+  "writeable": 0,
+  "recordable": 0,
+  "recordedResource": {
+    "id": "/heatSources/total/energyMonitoring/eheater",
+    "uri": "http://192.168.0.102/heatSources/total/energyMonitoring/eheater"
+  },
+  "interval": "",
+  "sampleRate": "",
+  "recording-type": "actual",
+  "recording": []
+}
+
+---
+
+247. /recordings/heatSources/total/energyMonitoring/compressor
+Status: ✅ SUCCESS
+Data: {
+  "id": "/recordings/heatSources/total/energyMonitoring/compressor",
+  "type": "yRecording",
+  "writeable": 0,
+  "recordable": 0,
+  "recordedResource": {
+    "id": "/heatSources/total/energyMonitoring/compressor",
+    "uri": "http://192.168.0.102/heatSources/total/energyMonitoring/compressor"
+  },
+  "interval": "",
+  "sampleRate": "",
+  "recording-type": "actual",
+  "recording": []
+}
+
+---
+
